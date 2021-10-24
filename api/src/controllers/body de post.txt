@@ -1,0 +1,8 @@
+{
+"name": "rafting",
+"difficulty": "3", 
+"duration": "1", 
+"season": "summer",
+"about": "activity carried out as a competition!",
+"countryId": ["ARG", "JEY"]
+}
