@@ -25,15 +25,15 @@ module.exports = (sequelize) => {
       flag: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate:{
-          isUrl: true
-        }
+        validate: {
+          isUrl: true,
+        },
       },
       map: {
         type: DataTypes.STRING,
-        validate:{
-          isUrl: true
-        }
+        validate: {
+          isUrl: true,
+        },
       },
       continent: {
         type: DataTypes.STRING,
@@ -54,11 +54,6 @@ module.exports = (sequelize) => {
       },
       population: {
         type: DataTypes.STRING,
-      },
-      activityAsosiated: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
       },
     },
     {

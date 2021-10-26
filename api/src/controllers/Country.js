@@ -57,7 +57,7 @@ const getFromId = async (req, res, next) => {
         model: Activity,
       },
     });
-    countryDb ? res.json(countryDb) : res.send("No matches were found");
+    countryDb ? res.json([countryDb]) : res.send("No matches were found");
   } catch (error) {
     console.log(error);
     res.status(404).send("No matches were found");

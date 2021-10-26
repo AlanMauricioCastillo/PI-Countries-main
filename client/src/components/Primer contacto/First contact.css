@@ -1,0 +1,34 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.bodys {
+  padding-top: -200px;
+  text-align: center;
+  height: 100vh;
+  background: url("./first\ contact.gif") no-repeat;
+  background-size: cover;
+}
+.get {
+  display: none;
+  border-radius: 15px;
+  top: 235px;
+  left: 330px;
+  width: 110px;
+  height: 30px;
+  font-size: 17px;
+  color:rgb(76, 102, 109);
+  text-align: center;
+  font-family: Constantia;
+  background: linear-gradient(
+    100deg,
+    #000000,
+    #6464ff 20%,
+    rgb(55, 19, 88),
+    #1b1218
+  );
+}
+.get:hover {
+  background-color: #000000;
+  color: white;
+}

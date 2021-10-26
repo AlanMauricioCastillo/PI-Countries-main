@@ -1,0 +1,8 @@
+export const WORLD = "WORLD",
+  GET_BY_NAME = "GET_BY_NAME",
+  GET_BY_ID = "GET_BY_ID",
+  PAGES = "PAGES",
+  ORDER = "ORDER",
+  CLEAR = "CLEAR",
+  ADD = "ADD",
+  ACTIVITY_FILTER = "ACTIVITY_FILTER";

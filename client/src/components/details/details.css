@@ -1,0 +1,68 @@
+.movie-card {
+  font: 14px/22px "Lato", Arial, sans-serif;
+  color: #a9a8a3;
+  padding: 40px 0;
+}
+
+.container {
+  margin: 0 auto;
+  width: 700px;
+  height: 600px;
+  background: #4d4d4d;
+  border-radius: 5px;
+  position: relative;
+}
+
+.details {
+  padding: 50px 0 0 50px;
+}
+
+.titleCapitalized {
+  text-transform: capitalize;
+}
+.titledetails {
+  text-transform: capitalize;
+  color: rgb(0, 17, 75);
+  font-size: 40px;
+  margin-bottom: 13px;
+  line-height: normal;
+  position: relative;
+}
+.title span {
+  margin-left: 12px;
+  background: #c4af3d;
+  border-radius: 5px;
+  color: #544c21;
+  font-size: 14px;
+  padding: 0px 4px;
+}
+.description {
+  /* background-color: blue; */
+  bottom: 0px;
+  height: 200px;
+  font-size: 16px;
+  line-height: 26px;
+  color: #b1b0ac;
+}
+.cardanolo {
+  background-color: orangered;
+  margin: 20px;
+  width: 18rem;
+  color: black;
+}
+.column {
+  padding-left: 41px;
+  padding-top: 30px;
+  margin-left: 20px;
+  width: 480px;
+}
+
+.img {
+  width: 500px;
+  height: 500px;
+  padding-left: 50px;
+}
+.container2 {
+  display: flex;
+  flex-direction: row;
+}

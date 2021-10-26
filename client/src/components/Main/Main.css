@@ -1,0 +1,155 @@
+.link {
+    color:black;
+    text-decoration: none;
+}
+.link:hover {
+  color: #00F
+}
+.form-container {
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+
+.label {
+    padding-right: 10px;
+}
+
+.card {
+  text-transform: capitalize;
+  background-color : transparent;
+  margin: 20px;
+  width: 18rem;
+  color:black
+}
+
+.card-title {
+  margin-bottom: 15px;
+  text-transform: capitalize;
+}
+
+#closeIcon {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 8px;
+  margin-top: 8px;
+}
+
+.card-body {
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+}
+.cards {  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+.pagination{
+  display: none;
+}
+.pagination button {
+  border: none;
+  background: red;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.but {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  border-radius: transparent;
+}
+
+.pagination button.active {
+  background-color: rgb(230, 101, 54);
+  color: white;
+}
+
+.pagination button:hover:not(.active) {background-color: rgb(230, 101, 54);}
+
+
+
+.list-item {
+  margin: 0;
+  display: flex;
+  height: 100%;
+  width: auto;
+  align-items: center;
+}
+
+
+
+#main {
+  border-color: red;
+}
+
+
+body {
+  text-align: center;
+  height: 100vh;
+  background-image: url("./poke.png");
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+
+
+.formas {
+  display: none;
+  border-top: red;
+  background-color: red;
+  width: 100%;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: justify;
+  border-bottom:solid;
+}
+
+.formas input {
+  width: 90%;
+  height: 30px;
+  margin: 0.5rem;
+}
+
+.formas button {
+  padding: 0.5em 1em;
+  border: none;
+  background: rgb(230, 101, 54);
+  cursor: pointer;
+}
+
+.card {
+  display: inline-block;
+  margin: 8px;
+  max-width: 300px;
+  perspective: 1000;
+  position: relative;
+  text-align: left;
+  transition: all 0.3s 0s ease-in;
+  width: 300px;
+  z-index: 1;
+}
+
+.textBox {
+  text-align: center;
+  border-radius: 10px;
+  width: 200px;
+  background-color: rgb(230, 101, 54);
+}
+
+.big {
+  padding-top: 60px;
+}
+
+.begin {
+  border:none;
+  border-bottom: solid;
+  border-top: solid;
+  color: black;
+  background-color: red;
+  width: 100%;
+}
