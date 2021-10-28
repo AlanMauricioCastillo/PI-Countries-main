@@ -3,7 +3,7 @@ import axios from "axios";
 import { CALL } from "../Variables";
 
 export function order(order, column) {
-  return function (dispatch) {
+  return async function (dispatch) {
     try {
     const call = await axios.get(`${CALL.ORDER}${order}/${column}`);
     if (call) {

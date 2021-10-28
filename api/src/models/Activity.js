@@ -33,13 +33,16 @@ module.exports = (sequelize) => {
         },
       },
       season: {
-        type: DataTypes.ENUM,
-        values: ["winter", "spring", "summer", "fall"],
+        type: DataTypes.ARRAY(
+          DataTypes.ENUM({
+            values: ["winter", "spring", "summer", "fall"],
+          })
+        ),
       },
       about: {
         type: DataTypes.STRING,
         allowNull: true,
-      }
+      },
     },
     {
       timestamps: false,

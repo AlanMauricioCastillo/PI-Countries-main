@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Logo from "./pokemon.png";
+//import Logo from "./pokemon.png";
 import "./Navbar.css";
 
 export default function NavBar() {

@@ -8,15 +8,13 @@ import "./details.css";
 
 export default function Details() {
   const { countryId } = useParams();
+  
   const dispatch = useDispatch();
   var country = useSelector((state) => state.countriesDetail);
   useEffect(() => {
-    if (country[0] === undefined) {
       dispatch(getFromId(countryId));
-    }
-  }, [dispatch, countryId, country]);
+  }, [countryId, dispatch]);
 
-  console.log(country);
   const {
     name,
     id,
@@ -29,7 +27,7 @@ export default function Details() {
     Activities,
     map,
   } = country[0];
-  console.log(Activities);
+
   return (
     <div className="big">
       <div className="pokemon-detail">

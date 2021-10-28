@@ -4,8 +4,10 @@ import {
   GET_BY_ID,
   ORDER,
   ACTIVITY_FILTER,
+  CONTINENT_FILTER,
   CLEAR,
   PAGES,
+  SHOW_HIDE,
   ADD,
 } from "../actions/index";
 
@@ -14,6 +16,7 @@ const initialState = {
   countriesDetail: {},
   countriesActivityFilter: [],
   countriesOnscreen: [],
+  swithDisplay: "Explorar",
   error: [],
 };
 
@@ -23,6 +26,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         countries: action.payload,
+        countriesOnscreen: action.payload,
       };
     case GET_BY_ID:
       return {
@@ -37,22 +41,32 @@ export default function rootReducer(state = initialState, action) {
     case ORDER:
       return {
         ...state,
-        countries: action.payload,
+        countriesOnscreen: action.payload,
       };
     case ACTIVITY_FILTER:
       return {
         ...state,
-        countries: action.payload,
+        countriesOnscreen: action.payload,
+      };
+      case CONTINENT_FILTER:
+      return {
+        ...state,
+        countriesOnscreen: action.payload,
       };
     case CLEAR:
       return {
         ...state,
         countriesDetail: action.payload,
       };
+    case SHOW_HIDE:
+      return {
+        ...state,
+        swithDisplay: action.payload,
+      };
     case PAGES:
       return {
         ...state,
-        countries: action.payload,
+        countriesOnscreen: action.payload,
       };
     case ADD:
       if (

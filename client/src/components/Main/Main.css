@@ -88,39 +88,14 @@
 }
 
 
-body {
+/* body {
   text-align: center;
   height: 100vh;
   background-image: url("./poke.png");
   background-attachment: fixed;
   background-size: cover;
-}
+} */
 
-
-
-.formas {
-  display: none;
-  border-top: red;
-  background-color: red;
-  width: 100%;
-  flex-direction: row;
-  justify-content:space-around;
-  align-items: justify;
-  border-bottom:solid;
-}
-
-.formas input {
-  width: 90%;
-  height: 30px;
-  margin: 0.5rem;
-}
-
-.formas button {
-  padding: 0.5em 1em;
-  border: none;
-  background: rgb(230, 101, 54);
-  cursor: pointer;
-}
 
 .card {
   display: inline-block;
@@ -145,11 +120,3 @@ body {
   padding-top: 60px;
 }
 
-.begin {
-  border:none;
-  border-bottom: solid;
-  border-top: solid;
-  color: black;
-  background-color: red;
-  width: 100%;
-}

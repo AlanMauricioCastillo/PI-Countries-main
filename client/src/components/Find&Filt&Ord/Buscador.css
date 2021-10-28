@@ -64,3 +64,33 @@
   width: 120px;
   background-color: rgb(230, 101, 54);
 }
+
+.begin {
+  border:none;
+  color: black;
+  background-color: transparent;
+  width: 100%;
+}
+
+.formas {
+  /* display: none; */
+  background-color: transparent;
+  width: 100%;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: justify;
+  border-bottom:solid;
+}
+
+.formas input {
+  width: 130px;
+  height: 25px;
+  margin: 0.5rem;
+}
+
+.formas button {
+  padding: 0.5em 1em;
+  border: none;
+  background: rgb(230, 101, 54);
+  cursor: pointer;
+}
