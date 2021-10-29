@@ -5,27 +5,30 @@ import {
   ORDER,
   ACTIVITY_FILTER,
   CONTINENT_FILTER,
+  SWITCH_PAGED,
   CLEAR,
-  PAGES,
+  RE_RENDER_COUNTRIES,
   SHOW_HIDE,
   ADD,
 } from "../actions/index";
 
 const initialState = {
-  countries: [],
-  countriesDetail: {},
+  reserveCountries: [],
+  countriesDetail: [],
   countriesActivityFilter: [],
   countriesOnscreen: [],
-  swithDisplay: "Explorar",
+  switchDisplay: "Explorar",
+  switchPaged: "notFiltering",
   error: [],
 };
 
 export default function rootReducer(state = initialState, action) {
+console.log(state.countriesDetail)
   switch (action.type) {
     case WORLD:
       return {
         ...state,
-        countries: action.payload,
+        reserveCountries: action.payload,
         countriesOnscreen: action.payload,
       };
     case GET_BY_ID:
@@ -61,12 +64,18 @@ export default function rootReducer(state = initialState, action) {
     case SHOW_HIDE:
       return {
         ...state,
-        swithDisplay: action.payload,
+        switchDisplay: action.payload,
       };
-    case PAGES:
+      case SWITCH_PAGED:
       return {
         ...state,
-        countriesOnscreen: action.payload,
+        switchPaged: action.payload,
+      };
+    case RE_RENDER_COUNTRIES:
+      const mountAgain = [...state.reserveCountries];
+      return {
+        ...state,
+        countriesOnscreen: mountAgain,
       };
     case ADD:
       if (

@@ -6,9 +6,10 @@ export function getFromId(id) {
   return async function (dispatch) {
     try {
       const call = await axios.get(CALL.BY_ID + id);
+      console.log(call.data);
       dispatch({ type: GET_BY_ID, payload: call.data });
     } catch (e) {
-      console.log("¡ese pokemon no existe!");
+      alert("¡Pais inexistente!");
     }
   };
 }

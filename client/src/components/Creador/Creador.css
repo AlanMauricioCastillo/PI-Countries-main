@@ -31,7 +31,7 @@
   background: url("inProgres.gif") no-repeat;
   background-size: contain;
 }
-#refresh {
+.refresh {
   background-color: red;
   border-radius: 12px;
   width: 90px;

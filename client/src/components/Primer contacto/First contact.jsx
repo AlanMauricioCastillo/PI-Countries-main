@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 
 export default function FirsContact() {
   const dispatch = useDispatch();
-  var countries = useSelector((state) => state.countries);
+  var countries = useSelector((state) => state.reserveCountries);
   useEffect(() => {
     if (!countries || countries.length < 1) {
       dispatch(getTheWorld());

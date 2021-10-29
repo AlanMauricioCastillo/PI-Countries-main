@@ -8,7 +8,7 @@ export function getFromName(name) {
       const call = await axios.get(CALL.BY_NAME + name);
       dispatch({ type: GET_BY_NAME, payload: call.data });
     } catch (e) {
-      console.log("¡ese pokemon no existe!");
+      alert("¡Pais inexistente!");
     }
   };
 }

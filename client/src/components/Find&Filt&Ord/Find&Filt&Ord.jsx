@@ -11,23 +11,26 @@ import "./Buscador.css";
 
 export default function FindAndFilt() {
   const dispatch = useDispatch();
-  var swithDisplay = useSelector((state) => state.swithDisplay);
+  var switchDisplay = useSelector((state) => state.switchDisplay);
 
   useEffect(() => {
     dispatch(clearDetails());
     let bar = document.getElementById("hide-me");
+    //let main = document.getElementById("main");
     //let pagination = document.getElementById("pagination");
-    if (swithDisplay === "Home") {
-      bar.style.display = "inline-block";
+    if (switchDisplay === "Home") {
+      bar.style.display = "";
+      //main.style.display = "none";
       //pagination.style.display = "none";
     } else {
       dispatch(showHide("Explorar"));
-      if (swithDisplay === "Explorar") {
+      if (switchDisplay === "Explorar") {
       }
       bar.style.display = "none";
+      //main.style.display = "inline-block";
       //pagination.style.display = "inline-block";
     }
-  }, [dispatch, swithDisplay]);
+  }, [dispatch, switchDisplay]);
 
   return (
     <div className="big">
@@ -35,21 +38,20 @@ export default function FindAndFilt() {
         className="begin"
         id="displayNone"
         onClick={() => {
-          swithDisplay === "Home"
+          switchDisplay === "Home"
             ? dispatch(showHide("Explorar"))
             : dispatch(showHide("Home"));
         }}
       >
-        {swithDisplay}
+        {switchDisplay}
       </button>
       <div id="hide-me" className="formas">
-        <ul>
           <div>
+          <h1>Explora</h1>
             <Ordering />
             <Filter />
             <Finder />
           </div>
-        </ul>
       </div>
     </div>
   );

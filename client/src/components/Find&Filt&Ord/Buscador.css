@@ -94,3 +94,7 @@
   background: rgb(230, 101, 54);
   cursor: pointer;
 }
+
+.big {
+  padding-top: 60px;
+}

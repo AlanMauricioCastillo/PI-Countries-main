@@ -1,0 +1,15 @@
+.paginado {
+  display: flex;
+  flex-direction: row;
+}
+
+.paginado button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #000;
+  cursor: pointer;
+  margin: 0.5em;
+  padding: 0.5em;
+  text-align: center;
+}

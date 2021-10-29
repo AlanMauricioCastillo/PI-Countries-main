@@ -16,22 +16,30 @@ export default function Finder() {
 
   const [countryName, setCountryName] = React.useState("");
   const [countryId, setCountryId] = React.useState("");
-  var details = useSelector((state) => state.countriesDetail);
+  var country = useSelector((state) => state.countriesDetail);
+  var countries = useSelector((state) => state.reserveCountries);
 
   const handleSerch = () => {
-    if (countryId !== "") {
+    let found = countries.find(
+      (country) => country.id === countryId.toUpperCase()
+    );
+    if (found && countryId !== "" && countryId.length === 3) {
       dispatch(getFromId(countryId));
       setCountryId("");
-    }
-    if (countryName !== "") {
+    } else if (countryName !== "") {
       dispatch(getFromName(countryName));
+      setCountryName("");
+    } else {
+      alert(
+        "el campo no puede estar vacio y el id debe ser de tres letras maximo"
+      );
+      setCountryId("");
       setCountryName("");
     }
   };
-
+  console.log(country);
   return (
     <div className="form-containerses">
-      <h1 className="titleBuscador">Buscar</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -39,11 +47,12 @@ export default function Finder() {
           handleSerch();
         }}
       >
-        <p>
-          <span>Busqueda por Nombre</span>
-        </p>
+        
+          <h3>Busqueda por Nombre</h3>
+        
         <input
           name="name"
+          id="name"
           type="text"
           placeholder="Country Nombre..."
           value={countryName}
@@ -51,11 +60,12 @@ export default function Finder() {
         />
         <input type="submit" value="Buscar" />
 
-        <p>
-          <span>Busqueda por Id</span>
-        </p>
+        
+          <h3>Busqueda por Id</h3>
+        
         <input
           name="id"
+          id="id"
           type="text"
           placeholder="Country Id..."
           value={countryId}
@@ -64,8 +74,8 @@ export default function Finder() {
         <input type="submit" value="Buscar" />
       </form>
       <div className="cards">
-        {details.length ? (
-          details.map((e) => {
+        {country.length > 0 ? (
+          country.map((e) => {
             return (
               <div key={e.id} className="card">
                 <Link to={`/country/${e.id}`} className="link">
