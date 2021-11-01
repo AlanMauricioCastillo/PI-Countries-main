@@ -1,15 +1,7 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import { Switch } from "react-router";
-/* import { useDispatch } from "react-redux";
-import { useEffect } from "react"; */
-
-//import { getTypes } from "./actions/getTypes";
-//import { getOwn } from "./actions/getOwn"
-//import {getThemAll} from "./actions/getThemAll"
 import NavBar from "./components/NavBar/NavBar";
 import FindAndFilt from "./components/Find&Filt&Ord/Find&Filt&Ord.jsx";
-//import Paginado from "./components/Paginado/Paginado";
-
 import Details from "./components/details/details";
 import Main from "./components/Main/Main.jsx";
 import Creador from "./components/Creador/Creador.jsx";

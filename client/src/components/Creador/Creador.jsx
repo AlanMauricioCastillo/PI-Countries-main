@@ -4,23 +4,31 @@ import Validador from "../../Validators/ValidatorCreations";
 /*import { newPokemon } from "../../actions/newPokemon";
 import { getThemAll } from "../../actions/getThemAll";
 import { getOwn } from "../../actions/getOwn"; */
+import { getTheWorld } from "../../actions/getTheWorld";
+//import { clearTheWorld } from "../../actions/clearWorld";
 import { newActivity } from "../../actions/newActivity";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "./Creador.css";
-import { /* Link, */ useHistory } from "react-router-dom";
+//import { /* Link, */ useHistory } from "react-router-dom";
 
 export default function Creador() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  useEffect(() => {
+    dispatch(getTheWorld());
+  }, [dispatch]);
+  /* useEffect(() => {
+    dispatch(clearTheWorld());
+  }, [dispatch]); */
+  //const history = useHistory();
   /* var tiposGState = useSelector((state) => state.pokemonsTypes);
   //const [hide, setHide] = React.useState("all");
   //const [render, setRender] = React.useState("");
   var creations = useSelector((state) => state.pokemonsPropios); */
   var countries = useSelector((state) => state.reserveCountries);
   //const [call, setCall] = React.useState("");
-  const [clear, /* setClear */] = React.useState("");
+  const [clear, setClear] = React.useState("");
   const [input, setInput] = React.useState({
     name: "",
     difficulty: "1",
@@ -31,11 +39,14 @@ export default function Creador() {
     countriesAssociated: [],
     countryId: [],
   });
-
   const [errors, setErrors] = React.useState({});
 
+  useEffect(() => {
+    dispatch(getTheWorld());
+  }, [clear, dispatch]);
+
   const handleAssociationCuntryActivity = (e) => {
-    console.log(e);
+    //console.log(e);
     let comand = e.target.value;
     if (comand !== "") {
       let found = countries.find((e) => e.name === comand);
@@ -52,12 +63,22 @@ export default function Creador() {
     }
   };
 
+  const resetRanges = (id) => {
+    document.getElementById(id).value = 1;
+  };
+
   useEffect(() => {
     if (clear !== "") {
+      resetRanges("difficulty");
+      resetRanges("duration");
+      handleLabel(null);
+      document.getElementById("about").value = "";
+      document.getElementById("season").value = "";
+      document.getElementById("datalistA").value = "";
       setInput({
         name: "",
-        difficulty: "",
-        duration: "",
+        difficulty: "1",
+        duration: "1",
         season: [],
         temporada: [],
         about: "",
@@ -65,14 +86,16 @@ export default function Creador() {
         countryId: [],
       });
     }
+    setClear("");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clear]);
 
   const onClose = (e) => {
-    console.log(e);
+    //console.log(e);
     let comand = e.target.value;
     let surce = e.target.id;
-    console.log(surce);
-    console.log(comand);
+    //console.log(surce);
+    //console.log(comand);
     if (surce === "countriesAssociated") {
       let aux = input.countryId.filter((e) => e !== comand);
       let aux2 = input.countriesAssociated.filter((e) => e.id !== comand);
@@ -97,12 +120,12 @@ export default function Creador() {
 
   const handleSeason = (e) => {
     handleInputChange(e);
-    console.log(e);
+    //console.log(e);
     let comand = e.target.value;
     if (comand !== "") {
       let valueName = [...input.season];
       if (!input.season.includes(comand)) valueName.push(comand);
-      console.log(valueName);
+      //console.log(valueName);
       setInput((prev) => ({
         ...prev,
         season: valueName,
@@ -110,10 +133,10 @@ export default function Creador() {
     }
   };
 
-  const routeChange = () => {
+  /* const routeChange = () => {
     let path = "/country";
     history.push(path);
-  };
+  }; */
 
   const handleInputChange = (e) => {
     let comand = e.target.value;
@@ -146,7 +169,7 @@ export default function Creador() {
       ...prev,
       temporada: [...valueName],
     }));
-    console.log(input.temporada);
+    //console.log(input.temporada);
     if (e.target.name !== "season" && e.target.id !== "temporada") {
       setInput((prev) => ({
         ...prev,
@@ -158,19 +181,26 @@ export default function Creador() {
   };
 
   const handleLabel = (e) => {
-    handleInputChange(e);
-    let id = e.target.id;
-    let out = "";
-    let inp = document.getElementById(id);
-    if (id === "difficulty") {
-      out = document.getElementById("labelDificulty");
-      out.innerHTML = `Nivel ${inp.value}`;
-    } else if (id === "duration") {
-      out = document.getElementById("labelDuration");
-      out.innerHTML = `${inp.value} Mes/es`;
+    if (e !== null) {
+      handleInputChange(e);
+      let id = e.target.id;
+      let out = "";
+      let inp = document.getElementById(id);
+      if (id === "difficulty") {
+        out = document.getElementById("labelDificulty");
+        out.innerHTML = `Nivel ${inp.value}`;
+      } else if (id === "duration") {
+        out = document.getElementById("labelDuration");
+        out.innerHTML = `${inp.value} Mes/es`;
+      }
+    } else {
+      let out = document.getElementById("labelDificulty");
+      out.innerHTML = "";
+      let out2 = document.getElementById("labelDuration");
+      out2.innerHTML = "";
     }
   };
-  console.log(input);
+  //console.log(input);
 
   return (
     <div className="big">
@@ -183,7 +213,7 @@ export default function Creador() {
             name="name"
             className={errors.Nombre && "danger"}
             onChange={handleInputChange}
-            value={input.Nombre}
+            value={input.name}
           />
           {errors.Nombre && !input.name && (
             <p className="danger">{errors.Nombre}</p>
@@ -219,8 +249,8 @@ export default function Creador() {
         </p>
         <p>
           <label>Temporada</label>
-          <select name="season" onChange={handleSeason}>
-            <option value="none"></option>
+          <select id="season" name="season" onChange={handleSeason}>
+            <option value=""></option>
             <option value="spring">Primavera</option>
             <option value="summer">Verano</option>
             <option value="fall">Otoño</option>
@@ -229,7 +259,7 @@ export default function Creador() {
         </p>
         <p>
           <label>Acerca</label>
-          <input type="text" name="about" onChange={handleInputChange} />
+          <input id="about" type="text" name="about" onChange={handleInputChange} />
         </p>
         <div>
           <label>Paises que la desarrollan:</label>
@@ -240,6 +270,8 @@ export default function Creador() {
             list="association"
             onClick={(e) => {
               document.getElementById("datalistA").value = "";
+              document.getElementById("association").value = "";
+
             }}
             onChange={handleAssociationCuntryActivity}
           />
@@ -321,8 +353,11 @@ export default function Creador() {
                   className="refresh"
                   onClick={(e) => {
                     e.preventDefault();
+                    //dispatch(getTheWorld());
+                    //console.log(input);
                     dispatch(newActivity(input));
-                    routeChange();
+                    //routeChange();
+                    setClear("call");
                   }}
                 >
                   Crear

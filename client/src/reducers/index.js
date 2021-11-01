@@ -5,6 +5,7 @@ import {
   ORDER,
   ACTIVITY_FILTER,
   CONTINENT_FILTER,
+  CLEAR_WORLD,
   SWITCH_PAGED,
   CLEAR,
   RE_RENDER_COUNTRIES,
@@ -23,20 +24,102 @@ const initialState = {
 };
 
 export default function rootReducer(state = initialState, action) {
-console.log(state.countriesDetail)
   switch (action.type) {
     case WORLD:
-      return {
-        ...state,
-        reserveCountries: action.payload,
-        countriesOnscreen: action.payload,
-      };
+      action.payload.forEach((e) => {
+        e.Activities.sort((a, b) => {
+          return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
+        });
+      });
+
+      action.payload.forEach((e) => {
+        const setObj = new Set();
+        const unicos = e.Activities.reduce((acc, activity) => {
+          if (!setObj.has(activity.name)) {
+            setObj.add(activity.name, activity);
+            acc.push(activity);
+          }
+          return acc;
+        }, []);
+        e.Activities = unicos;
+      });
+
+      if (action.payload[0].Activities !== undefined) {
+        let arr = [];
+        state.countriesActivityFilter = [];
+        arr = action.payload.filter((e) => {
+          return e.Activities.length > 0 && e.Activities;
+        });
+        let arrFiltered = arr.map((e) => {
+          return {
+            id: e.id,
+            Activities: e.Activities,
+          };
+        });
+
+        arr = [...arrFiltered, state.countriesActivityFilter];
+        return {
+          ...state,
+          reserveCountries: action.payload,
+          countriesOnscreen: action.payload,
+          countriesActivityFilter: [
+            ...state.countriesActivityFilter,
+            arr.flat(),
+          ],
+        };
+      } else {
+        let arr = [];
+        arr = [...arr, state.countriesActivityFilter];
+        return {
+          ...state,
+          reserveCountries: action.payload,
+          countriesOnscreen: action.payload,
+          countriesActivityFilter: [
+            ...state.countriesActivityFilter,
+            arr.flat(),
+          ],
+        };
+      }
     case GET_BY_ID:
+      action.payload.forEach((e) => {
+        e.Activities.sort((a, b) => {
+          return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
+        });
+      });
+
+      action.payload.forEach((e) => {
+        const setObj = new Set();
+        const unicos = e.Activities.reduce((acc, activity) => {
+          if (!setObj.has(activity.name)) {
+            setObj.add(activity.name, activity);
+            acc.push(activity);
+          }
+          return acc;
+        }, []);
+        e.Activities = unicos;
+      });
       return {
         ...state,
         countriesDetail: action.payload,
       };
     case GET_BY_NAME:
+      action.payload.forEach((e) => {
+        e.Activities.sort((a, b) => {
+          return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
+        });
+      });
+
+      action.payload.forEach((e) => {
+        const setObj = new Set();
+        const unicos = e.Activities.reduce((acc, activity) => {
+          if (!setObj.has(activity.name)) {
+            setObj.add(activity.name, activity);
+            acc.push(activity);
+          }
+          return acc;
+        }, []);
+        e.Activities = unicos;
+      });
       return {
         ...state,
         countriesDetail: action.payload,
@@ -51,7 +134,7 @@ console.log(state.countriesDetail)
         ...state,
         countriesOnscreen: action.payload,
       };
-      case CONTINENT_FILTER:
+    case CONTINENT_FILTER:
       return {
         ...state,
         countriesOnscreen: action.payload,
@@ -61,12 +144,18 @@ console.log(state.countriesDetail)
         ...state,
         countriesDetail: action.payload,
       };
+    case CLEAR_WORLD:
+      return {
+        ...state,
+        reserveCountries: action.payload,
+        countriesActivityFilter: action.payload,
+      };
     case SHOW_HIDE:
       return {
         ...state,
         switchDisplay: action.payload,
       };
-      case SWITCH_PAGED:
+    case SWITCH_PAGED:
       return {
         ...state,
         switchPaged: action.payload,
@@ -78,41 +167,78 @@ console.log(state.countriesDetail)
         countriesOnscreen: mountAgain,
       };
     case ADD:
-      if (
-        typeof state.countriesActivityFilter === "object" &&
-        state.countriesActivityFilter.length > 0
-      ) {
-        if (!state.countriesActivityFilter.includes(action.payload.name)) {
-          alert("¡Well done Activity created!");
+      if (state.countriesActivityFilter[0].length > 0) {
+        let existent = [];
+        // eslint-disable-next-line no-unused-vars
+        let a = [];
+        state.countriesActivityFilter[0].forEach((e) => {
+          existent.push({
+            id: (a = action.payload.countryId.map((element) => {
+              return element === e.id ? true : false;
+            })),
+            name: e.Activities.map((name) => {
+              return name.name === action.payload.name;
+            }),
+          });
+        });
+        let found = existent.find((e) => {
+          return e.id.includes(true) && e.name.includes(true);
+        });
+
+        if (found) {
+          alert("the Activity was updated in some countries");
+          let arr = [];
+          action.payload.countryId.forEach((e) => {
+            return arr.push({
+              id: e,
+              Activities: [
+                {
+                  name: action.payload.name,
+                },
+              ],
+            });
+          });
           return {
             ...state,
             countriesActivityFilter: [
               ...state.countriesActivityFilter,
-              action.payload,
-            ],
+              arr,
+            ].flat(),
           };
         } else {
-          alert("the Activity was updated in some countries");
-          return {
-            ...state,
-            countriesActivityFilter: [
-              ...state.countriesActivityFilter,
-              action.payload,
-            ],
-          };
+          alert("¡Well done Activity created!");
+          let arr = [];
+          action.payload.countryId.forEach((e) => {
+            return arr.push({
+              id: e,
+              Activities: [
+                {
+                  name: action.payload.name,
+                },
+              ],
+            });
+          });
         }
       }
-      if (
-        typeof state.countriesActivityFilter === "object" &&
-        state.countriesActivityFilter.length < 1
-      ) {
+      if (state.countriesActivityFilter[0].length < 1) {
         alert("¡Well done Activity created!");
+        let arr = [];
+        action.payload.countryId.forEach((e) => {
+          return arr.push({
+            id: e,
+            Activities: [
+              {
+                name: action.payload.name,
+              },
+            ],
+          });
+        });
         return {
           ...state,
           countriesActivityFilter: [
             ...state.countriesActivityFilter,
-            action.payload,
-          ],
+            arr,
+          ].flat(),
         };
       }
       break;

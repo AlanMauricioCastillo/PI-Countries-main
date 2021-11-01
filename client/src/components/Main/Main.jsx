@@ -1,22 +1,23 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-//import { getFromId } from "../../actions/getFromId.js";
 import Paginado from "../Paginado/Paginado.jsx";
-//import { getPaged } from "../../actions/getPaged";
-//import { filtrarPokemonNoPropios } from "../../actions/filtrarPokemonNoPropios";
-//import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-//import { order } from "../../actions/order";
-//import {clearDetails} from "../../actions/clearDetails"
-//import { getTheWord } from "../../actions/getTheWorld";
-//import details from "../Pokemon details/PokemonDetails";
+import { getTheWorld } from "../../actions/getTheWorld.js";
 import "./Main.css";
 
 export default function Main() {
-  //const dispatch = useDispatch();
-  var countries = useSelector((state) => state.countriesOnscreen);
+  const dispatch = useDispatch();
+  var base = useSelector((state) => state.reserveCountries);
+  useEffect(() => {
+    if(base.length===0){
+    dispatch(getTheWorld());
+    }
+  }, [base.length, dispatch]);
+
   var switchPaged = useSelector((state) => state.switchPaged);
+  var countries = useSelector((state) => state.countriesOnscreen);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [countriesPerPage /* setCountriesPerPage */] = React.useState(10);
   const indexOfLastCountry = currentPage * countriesPerPage;

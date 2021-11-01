@@ -7,6 +7,7 @@ import { getFromId } from "../../../actions/getFromId.js";
 import React from "react";
 import "../Buscador.css";
 import { Link } from "react-router-dom";
+import Paginado from "../../Paginado/Paginado.jsx";
 
 export default function Finder() {
   const dispatch = useDispatch();
@@ -14,10 +15,28 @@ export default function Finder() {
     dispatch(clearDetails());
   }, [dispatch]);
 
-  const [countryName, setCountryName] = React.useState("");
-  const [countryId, setCountryId] = React.useState("");
   var country = useSelector((state) => state.countriesDetail);
   var countries = useSelector((state) => state.reserveCountries);
+  const [countryName, setCountryName] = React.useState("");
+  const [countryId, setCountryId] = React.useState("");
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [countriesPerPage /* setCountriesPerPage */] = React.useState(10);
+  const indexOfLastCountry = currentPage * countriesPerPage;
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+  const currentCountries = country.slice(
+    indexOfFirstCountry,
+    indexOfLastCountry
+  );
+
+  
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [countries]);
 
   const handleSerch = () => {
     let found = countries.find(
@@ -31,13 +50,14 @@ export default function Finder() {
       setCountryName("");
     } else {
       alert(
-        "el campo no puede estar vacio y el id debe ser de tres letras maximo"
+        "el campo no puede estar vacio y el id debe ser de tres letras"
       );
       setCountryId("");
       setCountryName("");
     }
   };
-  console.log(country);
+  //console.log(country);
+  //console.log(currentCountries);
   return (
     <div className="form-containerses">
       <form
@@ -74,8 +94,8 @@ export default function Finder() {
         <input type="submit" value="Buscar" />
       </form>
       <div className="cards">
-        {country.length > 0 ? (
-          country.map((e) => {
+        {currentCountries.length > 0 ? (
+          currentCountries.map((e) => {
             return (
               <div key={e.id} className="card">
                 <Link to={`/country/${e.id}`} className="link">
@@ -96,6 +116,11 @@ export default function Finder() {
           <span></span>
         )}
       </div>
+      <Paginado
+        countriesPerPage={countriesPerPage}
+        countries={country.length}
+        paginate={paginate}
+      />
     </div>
   );
 }
