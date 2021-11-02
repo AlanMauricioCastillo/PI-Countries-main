@@ -8,7 +8,7 @@ export default function Paginado({ countriesPerPage, countries, paginate }) {
   }
 
   return (
-    <nav className="nav">
+    <nav classname="empty">
       <ul className="paginado">
         {pageNumbers.map((number, i) => {
           return <button key={i} onClick={() => paginate(number)}>{number}</button>;

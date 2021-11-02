@@ -28,8 +28,6 @@ export default function Finder() {
     indexOfLastCountry
   );
 
-  
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -48,16 +46,15 @@ export default function Finder() {
     } else if (countryName !== "") {
       dispatch(getFromName(countryName));
       setCountryName("");
-    } else {
-      alert(
-        "el campo no puede estar vacio y el id debe ser de tres letras"
-      );
+    } else if (countryName === "" && countryId === "") {
+      alert("el campo no puede estar vacio");
+    } else if (countryId !== "" && countryId.length !== 3) {
+      alert("el id debe ser de tres letras");
       setCountryId("");
       setCountryName("");
     }
   };
-  //console.log(country);
-  //console.log(currentCountries);
+
   return (
     <div className="form-containerses">
       <form
@@ -67,9 +64,8 @@ export default function Finder() {
           handleSerch();
         }}
       >
-        
-          <h3>Busqueda por Nombre</h3>
-        
+        <h3>Busqueda por Nombre</h3>
+
         <input
           name="name"
           id="name"
@@ -80,9 +76,8 @@ export default function Finder() {
         />
         <input type="submit" value="Buscar" />
 
-        
-          <h3>Busqueda por Id</h3>
-        
+        <h3>Busqueda por Id</h3>
+
         <input
           name="id"
           id="id"

@@ -1,31 +1,17 @@
 import React from "react";
 import Validador from "../../Validators/ValidatorCreations";
-//import RangeInput from "./RangeInput";
-/*import { newPokemon } from "../../actions/newPokemon";
-import { getThemAll } from "../../actions/getThemAll";
-import { getOwn } from "../../actions/getOwn"; */
 import { getTheWorld } from "../../actions/getTheWorld";
-//import { clearTheWorld } from "../../actions/clearWorld";
 import { newActivity } from "../../actions/newActivity";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "./Creador.css";
-//import { /* Link, */ useHistory } from "react-router-dom";
 
 export default function Creador() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTheWorld());
   }, [dispatch]);
-  /* useEffect(() => {
-    dispatch(clearTheWorld());
-  }, [dispatch]); */
-  //const history = useHistory();
-  /* var tiposGState = useSelector((state) => state.pokemonsTypes);
-  //const [hide, setHide] = React.useState("all");
-  //const [render, setRender] = React.useState("");
-  var creations = useSelector((state) => state.pokemonsPropios); */
   var countries = useSelector((state) => state.reserveCountries);
   //const [call, setCall] = React.useState("");
   const [clear, setClear] = React.useState("");
@@ -46,7 +32,6 @@ export default function Creador() {
   }, [clear, dispatch]);
 
   const handleAssociationCuntryActivity = (e) => {
-    //console.log(e);
     let comand = e.target.value;
     if (comand !== "") {
       let found = countries.find((e) => e.name === comand);
@@ -87,15 +72,13 @@ export default function Creador() {
       });
     }
     setClear("");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clear]);
 
   const onClose = (e) => {
     //console.log(e);
     let comand = e.target.value;
     let surce = e.target.id;
-    //console.log(surce);
-    //console.log(comand);
     if (surce === "countriesAssociated") {
       let aux = input.countryId.filter((e) => e !== comand);
       let aux2 = input.countriesAssociated.filter((e) => e.id !== comand);
@@ -114,29 +97,20 @@ export default function Creador() {
         temporada: aux2,
       }));
     }
-    //input.countriesAssociated
-    //this.setState({cities: this.state.cities.filter(c => c.id !== e)})
   };
 
   const handleSeason = (e) => {
     handleInputChange(e);
-    //console.log(e);
     let comand = e.target.value;
     if (comand !== "") {
       let valueName = [...input.season];
       if (!input.season.includes(comand)) valueName.push(comand);
-      //console.log(valueName);
       setInput((prev) => ({
         ...prev,
         season: valueName,
       }));
     }
   };
-
-  /* const routeChange = () => {
-    let path = "/country";
-    history.push(path);
-  }; */
 
   const handleInputChange = (e) => {
     let comand = e.target.value;
@@ -169,7 +143,6 @@ export default function Creador() {
       ...prev,
       temporada: [...valueName],
     }));
-    //console.log(input.temporada);
     if (e.target.name !== "season" && e.target.id !== "temporada") {
       setInput((prev) => ({
         ...prev,
@@ -200,7 +173,6 @@ export default function Creador() {
       out2.innerHTML = "";
     }
   };
-  //console.log(input);
 
   return (
     <div className="big">
@@ -259,7 +231,12 @@ export default function Creador() {
         </p>
         <p>
           <label>Acerca</label>
-          <input id="about" type="text" name="about" onChange={handleInputChange} />
+          <input
+            id="about"
+            type="text"
+            name="about"
+            onChange={handleInputChange}
+          />
         </p>
         <div>
           <label>Paises que la desarrollan:</label>
@@ -271,7 +248,6 @@ export default function Creador() {
             onClick={(e) => {
               document.getElementById("datalistA").value = "";
               document.getElementById("association").value = "";
-
             }}
             onChange={handleAssociationCuntryActivity}
           />
@@ -353,10 +329,7 @@ export default function Creador() {
                   className="refresh"
                   onClick={(e) => {
                     e.preventDefault();
-                    //dispatch(getTheWorld());
-                    //console.log(input);
                     dispatch(newActivity(input));
-                    //routeChange();
                     setClear("call");
                   }}
                 >

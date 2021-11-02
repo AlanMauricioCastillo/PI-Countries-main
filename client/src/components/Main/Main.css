@@ -24,6 +24,10 @@
   color:black
 }
 
+.empty {
+  background-color : olivedrab;
+}
+
 .card-title {
   margin-bottom: 15px;
   text-transform: capitalize;
@@ -88,13 +92,13 @@
 }
 
 
-/* body {
+.bodies {
   text-align: center;
   height: 100vh;
-  background-image: url("./poke.png");
+  background-image: url("./L3.jpg");
   background-attachment: fixed;
   background-size: cover;
-} */
+}
 
 
 .card {

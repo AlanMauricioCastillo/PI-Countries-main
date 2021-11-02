@@ -1,21 +1,20 @@
 import { useDispatch } from "react-redux";
 import { continentFilter } from "../../../actions/continentFilter";
 import { useSelector } from "react-redux";
-/*import { useEffect } from "react";
-import { clearDetails } from "../../actions/clearDetails";
-import { getFromName } from "../../actions/getFromName";
-import { getFromId } from "../../actions/getFromId";
-import { showHide } from "../../actions/showHide"; */
 import React from "react";
 import "../Buscador.css";
 import { reRenderCountries } from "../../../actions/reRenderCountries";
 import { activityFilter } from "../../../actions/activityFilter";
 import { switchPaged } from "../../../actions/switchPaged";
-//import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Filter() {
   const dispatch = useDispatch();
   var countries = useSelector((state) => state.reserveCountries);
+
+  useEffect(() => {
+    dispatch(reRenderCountries(countries));
+  }, [countries, dispatch]);
 
   let lazy = [],
     i = 2;
@@ -24,21 +23,32 @@ export default function Filter() {
     i++;
   }
 
-  const handleContinentFilter = (e) => {
+  const handleNameFilter = (e) => {
     let comand = e.target.value;
     if (comand !== "refresh") {
-      dispatch(continentFilter(comand));
-      dispatch(switchPaged("filtering"))
+      let arr = countries.filter((e) => {
+        return e.Activities.length > 0;
+      });
+      let arr2 = [];
+      for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].Activities.length; j++) {
+          if (arr[i].Activities[j].name === comand) {
+            arr2.push(arr[i]);
+          }
+        }
+      }
+      dispatch(activityFilter(arr2));
+      dispatch(switchPaged("filtering"));
     } else {
       dispatch(reRenderCountries());
-      dispatch(switchPaged("notFiltering"))
+      dispatch(switchPaged("notFiltering"));
     }
   };
 
   const handleDificultyFilter = (e) => {
     let comand = e.target.value;
     if (comand !== "refresh") {
-      let arr = countries.filter(e => {
+      let arr = countries.filter((e) => {
         return e.Activities.length > 0;
       });
       let arr2 = [];
@@ -50,17 +60,17 @@ export default function Filter() {
         }
       }
       dispatch(activityFilter(arr2));
-      dispatch(switchPaged("filtering"))
+      dispatch(switchPaged("filtering"));
     } else {
       dispatch(reRenderCountries());
-      dispatch(switchPaged("notFiltering"))
+      dispatch(switchPaged("notFiltering"));
     }
   };
 
   const handleDurationFilter = (e) => {
     let comand = e.target.value;
     if (comand !== "refresh") {
-      let arr = countries.filter(e => {
+      let arr = countries.filter((e) => {
         return e.Activities.length > 0;
       });
       let arr2 = [];
@@ -72,18 +82,17 @@ export default function Filter() {
         }
       }
       dispatch(activityFilter(arr2));
-      dispatch(switchPaged("filtering"))
+      dispatch(switchPaged("filtering"));
     } else {
       dispatch(reRenderCountries());
-      dispatch(switchPaged("notFiltering"))
+      dispatch(switchPaged("notFiltering"));
     }
   };
 
   const handleSeasonFilter = (e) => {
     let comand = e.target.value;
-    console.log(comand);
     if (comand !== "refresh") {
-      let arr = countries.filter(e => {
+      let arr = countries.filter((e) => {
         return e.Activities.length > 0;
       });
       let arr2 = [];
@@ -95,17 +104,55 @@ export default function Filter() {
         }
       }
       dispatch(activityFilter(arr2));
-      dispatch(switchPaged("filtering"))
+      dispatch(switchPaged("filtering"));
     } else {
       dispatch(reRenderCountries());
-      dispatch(switchPaged("notFiltering"))
+      dispatch(switchPaged("notFiltering"));
     }
   };
 
+  const handleContinentFilter = (e) => {
+    let comand = e.target.value;
+    if (comand !== "refresh") {
+      dispatch(continentFilter(comand));
+      dispatch(switchPaged("filtering"));
+    } else {
+      dispatch(reRenderCountries());
+      dispatch(switchPaged("notFiltering"));
+    }
+  };
+
+  if (countries && countries[0].Activities !== undefined) {
+    let arr =
+      countries[0].Activities &&
+      countries.filter((e) => {
+        return e.Activities.length > 0;
+      });
+    let arr2 = arr.map((e) => e.Activities.map((e) => e.name));
+    var result = arr2.flat().filter((item, index) => {
+      return arr2.flat().indexOf(item) === index;
+    });
+  }
   return (
     <div>
       <h3>Filtra por Actividad</h3>
       <p>
+        <label>Nombre</label>
+        <select onChange={(e) => handleNameFilter(e)}>
+          <option value="refresh">All</option>
+          {result &&
+            result.map((e, i) => {
+              return (
+                <option
+                  style={{ textTransform: "capitalize" }}
+                  key={i}
+                  value={e.toLowerCase()}
+                >
+                  {e[0].toUpperCase() + e.slice(1)}
+                </option>
+              );
+            })}
+        </select>
         <label>Dificultad</label>
         <select onChange={(e) => handleDificultyFilter(e)}>
           <option value="refresh">All</option>
@@ -121,7 +168,11 @@ export default function Filter() {
           <option value="refresh">All</option>
           <option value="1">1 Mes</option>
           {lazy.map((item, i) => {
-            return <option key={i} value={item}>{item} Meses</option>;
+            return (
+              <option key={i} value={item}>
+                {item} Meses
+              </option>
+            );
           })}
         </select>
 

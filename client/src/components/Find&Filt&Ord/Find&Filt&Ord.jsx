@@ -16,19 +16,13 @@ export default function FindAndFilt() {
   useEffect(() => {
     dispatch(clearDetails());
     let bar = document.getElementById("hide-me");
-    //let main = document.getElementById("main");
-    //let pagination = document.getElementById("pagination");
     if (switchDisplay === "Home") {
       bar.style.display = "";
-      //main.style.display = "none";
-      //pagination.style.display = "none";
     } else {
       dispatch(showHide("Explorar"));
       if (switchDisplay === "Explorar") {
       }
       bar.style.display = "none";
-      //main.style.display = "inline-block";
-      //pagination.style.display = "inline-block";
     }
   }, [dispatch, switchDisplay]);
 
@@ -46,12 +40,12 @@ export default function FindAndFilt() {
         {switchDisplay}
       </button>
       <div id="hide-me" className="formas">
-          <div>
+        <div>
           <h1>Explora</h1>
-            <Ordering />
-            <Filter />
-            <Finder />
-          </div>
+          <Ordering />
+          <Filter />
+          <Finder />
+        </div>
       </div>
     </div>
   );
