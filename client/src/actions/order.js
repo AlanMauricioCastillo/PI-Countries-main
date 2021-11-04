@@ -5,12 +5,12 @@ import { CALL } from "../Variables";
 export function order(order, column) {
   return async function (dispatch) {
     try {
-    const call = await axios.get(`${CALL.ORDER}${order}/${column}`);
-    if (call) {
-      dispatch({ type: ORDER, payload: call.data });
+      const call = await axios.get(`${CALL.ORDER}${order}/${column}`);
+      if (call) {
+        dispatch({ type: ORDER, payload: call.data });
+      }
+    } catch (e) {
+      console.log(e);
     }
-  } catch (e) {
-    console.log(e)
-  }
   };
 }
