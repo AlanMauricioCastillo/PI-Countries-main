@@ -6,3 +6,10 @@
   color: white;
   background-color: transparent;
 }
+
+.textBoxFinder:hover {
+  padding-bottom: 30px;
+  transition: all 0.8s ease-in-out;
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+}
