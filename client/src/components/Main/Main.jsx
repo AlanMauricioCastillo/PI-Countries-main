@@ -69,7 +69,7 @@ export default function Main() {
             );
           })
         ) : (
-          <span></span>
+          <h1 className="white">No countries Associated</h1>
         )}
       </div>
       <Paginado

@@ -78,8 +78,8 @@ export default function Details() {
               </div>
               <h2>Activities</h2>
               <hr />
-              <div className="cardanolo">
-                <div className="divOfDetails">
+              <div className="cardanolos">
+                <div className="cardanolo">
                   {Activities.length > 0 ? (
                     Activities.map((e, i) => {
                       return (

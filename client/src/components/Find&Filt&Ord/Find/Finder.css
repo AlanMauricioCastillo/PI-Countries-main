@@ -1,0 +1,8 @@
+.textBoxFinder {
+  transition: all 0.8s ease-in-out;
+  text-align: center;
+  border-radius: 10px;
+  width: 200px;
+  color: white;
+  background-color: transparent;
+}

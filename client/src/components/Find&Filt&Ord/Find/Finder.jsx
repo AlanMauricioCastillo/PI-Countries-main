@@ -8,6 +8,7 @@ import React from "react";
 import "../Buscador.css";
 import { Link } from "react-router-dom";
 import Paginado from "../../Paginado/Paginado.jsx";
+import "./Finder.css"
 
 export default function Finder() {
   const dispatch = useDispatch();
@@ -98,7 +99,7 @@ export default function Finder() {
                     <div>
                       <img className="imagen" src={e.flag} alt="" />
                     </div>
-                    <div className="textBox">
+                    <div className="textBoxFinder">
                       <h3>{e.name}</h3>
                       <h5>{e.continent}</h5>
                     </div>
