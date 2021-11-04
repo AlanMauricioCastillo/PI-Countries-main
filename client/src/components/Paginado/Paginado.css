@@ -1,15 +1,29 @@
 .paginado {
-  display: flex;
-  flex-direction: row;
+  background-color: rgb(4, 0, 24);
+  width: 100%;
+  padding-top: 6px;
+  display: inline-block;
+  padding-bottom: 90px;
+  position: static;
 }
 
-.paginado button {
-  background-color: #fff;
-  border: 1px solid #ccc;
+.paginado a {
+  background-color: rgba(4, 0, 24, 0.856);
   border-radius: 5px;
-  color: #000;
+  color: white;
   cursor: pointer;
-  margin: 0.5em;
-  padding: 0.5em;
+  margin: 0.3em;
+  padding: 0.3em;
   text-align: center;
 }
+
+.paginado a:hover:not(.activo){
+  background-color: gray;
+}
+/* .empty {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+} */
+

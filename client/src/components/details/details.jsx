@@ -56,7 +56,7 @@ export default function Details() {
     }
 
     return (
-      <div className="big">
+      <div className="bigDetail">
         <div className="pokemon-detail">
           {country[0].name ? (
             <div className="description">
@@ -64,13 +64,13 @@ export default function Details() {
                 <h1>{name}</h1>
               </div>
               <img src={flag} alt={"im"} width="300px" height="200px" />
-              <div className="cardanolo">
-                <h2>Id: {id}</h2>
-                <h2>Capital: {capital}</h2>
+              <div className="cardanoloTop">
+                <h2 className="titleCapitalized">Id: {id}</h2>
+                <h2 className="titleCapitalized">Capital: {capital}</h2>
                 <h2 className="titleCapitalized">Continent: {continent}</h2>
-                <h2>Subregion: {subregion}</h2>
-                <h2>Population: {population}</h2>
-                <h2>Area: {area}Km²</h2>
+                <h2 className="titleCapitalized">Subregion: {subregion}</h2>
+                <h2 className="titleCapitalized">Population: {population}</h2>
+                <h2 className="titleCapitalized">Area: {area}Km²</h2>
                 <Link to="/country"></Link>
                 <a href={map} target="_blank" rel="noreferrer">
                   Map
@@ -79,11 +79,11 @@ export default function Details() {
               <h2>Activities</h2>
               <hr />
               <div className="cardanolo">
-                <div className="cards">
+                <div className="divOfDetails">
                   {Activities.length > 0 ? (
                     Activities.map((e, i) => {
                       return (
-                        <div className="card" key={i}>
+                        <div className="cardInDetail" key={i}>
                           <h3 className="titleCapitalized">{e.name}</h3>
                           <span>{e.about}</span>
                           <h4>Duracion de {e.duration} Mes/es</h4>
@@ -97,7 +97,7 @@ export default function Details() {
                       );
                     })
                   ) : (
-                    <span>Activities: No Activity associated</span>
+                    <span bacgrond-color="orange" >Activities: No Activity associated</span>
                   )}
                 </div>
               </div>

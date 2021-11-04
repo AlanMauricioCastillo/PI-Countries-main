@@ -28,7 +28,7 @@ export default function FirsContact() {
         <button 
         id="get" className="get" 
         type="submit">
-          World Wide
+          World Wide Travel
         </button>
       </NavLink>
     </div>

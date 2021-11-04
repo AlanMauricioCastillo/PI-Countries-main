@@ -18,7 +18,7 @@ const initialState = {
   countriesDetail: [],
   countriesActivityFilter: [],
   countriesOnscreen: [],
-  switchDisplay: "Explorar",
+  switchDisplay: "Explore",
   switchPaged: "notFiltering",
   error: [],
 };
@@ -26,25 +26,24 @@ const initialState = {
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case WORLD:
-      action.payload.forEach((e) => {
-        e.Activities.sort((a, b) => {
-          return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
-        });
-      });
-
-      action.payload.forEach((e) => {
-        const setObj = new Set();
-        const unicos = e.Activities.reduce((acc, activity) => {
-          if (!setObj.has(activity.name)) {
-            setObj.add(activity.name, activity);
-            acc.push(activity);
-          }
-          return acc;
-        }, []);
-        e.Activities = unicos;
-      });
-
       if (action.payload[0].Activities !== undefined) {
+        action.payload.forEach((e) => {
+          e.Activities.sort((a, b) => {
+            return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
+          });
+        });
+
+        action.payload.forEach((e) => {
+          const setObj = new Set();
+          const unicos = e.Activities.reduce((acc, activity) => {
+            if (!setObj.has(activity.name)) {
+              setObj.add(activity.name, activity);
+              acc.push(activity);
+            }
+            return acc;
+          }, []);
+          e.Activities = unicos;
+        });
         let arr = [];
         state.countriesActivityFilter = [];
         arr = action.payload.filter((e) => {

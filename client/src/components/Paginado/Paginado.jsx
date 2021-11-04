@@ -8,12 +8,19 @@ export default function Paginado({ countriesPerPage, countries, paginate }) {
   }
 
   return (
-    <nav classname="empty">
-      <ul className="paginado">
-        {pageNumbers.map((number, i) => {
-          return <button key={i} onClick={() => paginate(number)}>{number}</button>;
-        })}
-      </ul>
-    </nav>
+    <div className="foot">
+      <nav className="empty">
+        <ul className="paginado">
+          {pageNumbers.map((number, i) => {
+            return (
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+              <a key={i} onClick={() => paginate(number)}>
+                {number}
+              </a>
+            );
+          })}
+        </ul>
+      </nav>
+    </div>
   );
 }

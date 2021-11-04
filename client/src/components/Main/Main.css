@@ -1,31 +1,22 @@
 .link {
-    color:black;
-    text-decoration: none;
+  color: black;
+  text-decoration: none;
 }
 .link:hover {
-  color: #00F
+  color: #00f;
 }
 .form-container {
-    display:flex;
-    flex-direction: row;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 }
-
 
 .label {
-    padding-right: 10px;
+  padding-right: 10px;
 }
 
-.card {
-  text-transform: capitalize;
-  background-color : transparent;
-  margin: 20px;
-  width: 18rem;
-  color:black
-}
-
-.empty {
-  background-color : olivedrab;
+body {
+  background-color: rgb(4, 0, 24);
 }
 
 .card-title {
@@ -44,38 +35,14 @@
   margin-top: 0px !important;
   padding-top: 0px !important;
 }
-.cards {  
-  display: flex;
+.cards {
+  display: inline-flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  margin-bottom: 80px;
 }
-
-
-.pagination{
-  display: none;
-}
-.pagination button {
-  border: none;
-  background: red;
-  cursor: pointer;
-  padding: 8px 16px;
-}
-
-.but {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  border-radius: transparent;
-}
-
-.pagination button.active {
-  background-color: rgb(230, 101, 54);
-  color: white;
-}
-
-.pagination button:hover:not(.active) {background-color: rgb(230, 101, 54);}
-
-
 
 .list-item {
   margin: 0;
@@ -85,21 +52,24 @@
   align-items: center;
 }
 
-
-
-#main {
-  border-color: red;
-}
-
-
 .bodies {
-  text-align: center;
+  padding-top: 60px;
   height: 100vh;
   background-image: url("./L3.jpg");
-  background-attachment: fixed;
   background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  padding-bottom: 350px;
 }
-
+.bodies1 {
+  padding-top: 60px;
+  height: 100vh;
+  background-image: url("./L3.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  padding-bottom: 130px;
+}
 
 .card {
   display: inline-block;
@@ -113,12 +83,47 @@
   z-index: 1;
 }
 
+.card:hover {
+  padding-bottom: 30px;
+  padding-top: 30px;
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+}
+
+.imagen {
+  width: 250px;
+  height: 150px;
+  z-index: 2;
+}
+img {
+  transition: all 0.8s ease-in-out;
+}
+
+.imagen:hover {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 30%;
+  -webkit-border-radius: 20%;
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+}
+
 .textBox {
+  transition: all 0.8s ease-in-out;
   text-align: center;
   border-radius: 10px;
   width: 200px;
-  background-color: rgb(230, 101, 54);
+  background-color: transparent;
+}
+
+.textBox:hover {
+  padding-bottom: 30px;
+  transition: all 0.8s ease-in-out;
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
 }
 
 
-
+.label {
+  padding-right: 10px;
+}

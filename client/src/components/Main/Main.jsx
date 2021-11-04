@@ -10,11 +10,14 @@ import "./Main.css";
 export default function Main() {
   const dispatch = useDispatch();
   var base = useSelector((state) => state.reserveCountries);
+  let length = "";
+  let currentVewes = "bodies";
+  if(base.length !== 0){
+    length = base[0].Activities !== undefined && base[0].Activities.length;
+  }
   useEffect(() => {
-    if(base.length===0){
     dispatch(getTheWorld());
-    }
-  }, [base.length, dispatch]);
+  }, [length.length, dispatch]);
 
   var switchPaged = useSelector((state) => state.switchPaged);
   var countries = useSelector((state) => state.countriesOnscreen);
@@ -30,6 +33,7 @@ export default function Main() {
   if (switchPaged === "notFiltering") {
     if (currentPage === 1) {
       currentCountries.pop();
+      currentVewes = "bodies1";
     }
   }
 
@@ -44,7 +48,7 @@ export default function Main() {
   let set = new Set(currentCountries.map(JSON.stringify));
   let arrSinDuplicaciones = Array.from(set).map(JSON.parse);
   return (
-    <div className="bodies">
+    <div className={`${currentVewes}`}>
       <div id="main" className="cards">
         {arrSinDuplicaciones.length ? (
           arrSinDuplicaciones.map((e) => {

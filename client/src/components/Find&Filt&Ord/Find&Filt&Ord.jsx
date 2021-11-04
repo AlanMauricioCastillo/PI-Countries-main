@@ -19,21 +19,21 @@ export default function FindAndFilt() {
     if (switchDisplay === "Home") {
       bar.style.display = "";
     } else {
-      dispatch(showHide("Explorar"));
-      if (switchDisplay === "Explorar") {
+      dispatch(showHide("Explore"));
+      if (switchDisplay === "Explore") {
       }
       bar.style.display = "none";
     }
   }, [dispatch, switchDisplay]);
 
   return (
-    <div className="big">
+    <div className="explorer">
       <button
         className="begin"
         id="displayNone"
         onClick={() => {
           switchDisplay === "Home"
-            ? dispatch(showHide("Explorar"))
+            ? dispatch(showHide("Explore"))
             : dispatch(showHide("Home"));
         }}
       >
@@ -41,7 +41,7 @@ export default function FindAndFilt() {
       </button>
       <div id="hide-me" className="formas">
         <div>
-          <h1>Explora</h1>
+          <h1>Explore</h1>
           <Ordering />
           <Filter />
           <Finder />

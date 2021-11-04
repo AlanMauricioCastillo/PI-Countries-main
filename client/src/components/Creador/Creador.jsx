@@ -9,9 +9,9 @@ import "./Creador.css";
 
 export default function Creador() {
   const dispatch = useDispatch();
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(getTheWorld());
-  }, [dispatch]);
+  }, [dispatch]); */
   var countries = useSelector((state) => state.reserveCountries);
   //const [call, setCall] = React.useState("");
   const [clear, setClear] = React.useState("");
@@ -29,7 +29,8 @@ export default function Creador() {
 
   useEffect(() => {
     dispatch(getTheWorld());
-  }, [clear, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clear]);
 
   const handleAssociationCuntryActivity = (e) => {
     let comand = e.target.value;
@@ -39,11 +40,18 @@ export default function Creador() {
       if (found) {
         if (!input.countriesAssociated.includes(found) && found)
           valueName.push(found);
-        setInput((prev) => ({
-          ...prev,
-          countriesAssociated: valueName,
-          countryId: [...input.countryId, found.id],
-        }));
+        if (!input.countryId.includes(found.id)) {
+          setInput((prev) => ({
+            ...prev,
+            countriesAssociated: valueName,
+            countryId: [...input.countryId, found.id],
+          }));
+        } else {
+          setInput((prev) => ({
+            ...prev,
+            countriesAssociated: valueName,
+          }));
+        }
       }
     }
   };
@@ -163,8 +171,10 @@ export default function Creador() {
         out = document.getElementById("labelDificulty");
         out.innerHTML = `Nivel ${inp.value}`;
       } else if (id === "duration") {
+        let diference = "Meses";
+        if (inp.value === "1") diference = "Mes";
         out = document.getElementById("labelDuration");
-        out.innerHTML = `${inp.value} Mes/es`;
+        out.innerHTML = `${inp.value} ${diference}`;
       }
     } else {
       let out = document.getElementById("labelDificulty");
@@ -175,174 +185,176 @@ export default function Creador() {
   };
 
   return (
-    <div className="big">
-      <h2>Crea Actividades</h2>
-      <form className="form">
-        <div>
-          <label>Nombre:</label>
-          <input
-            type="text"
-            name="name"
-            className={errors.Nombre && "danger"}
-            onChange={handleInputChange}
-            value={input.name}
-          />
-          {errors.Nombre && !input.name && (
-            <p className="danger">{errors.Nombre}</p>
-          )}
-        </div>
-        <p>
-          <label>Dificultad</label>
-          <input
-            id="difficulty"
-            name="difficulty"
-            type="range"
-            step="1"
-            min="1"
-            max="5"
-            defaultValue="1"
-            onChange={handleLabel}
-          />
-          <span id="labelDificulty"></span>
-        </p>
-        <p>
-          <label>Duracion</label>
-          <input
-            id="duration"
-            name="duration"
-            type="range"
-            step="1"
-            min="1"
-            max="12"
-            defaultValue="1"
-            onChange={handleLabel}
-          />
-          <span id="labelDuration"></span>
-        </p>
-        <p>
-          <label>Temporada</label>
-          <select id="season" name="season" onChange={handleSeason}>
-            <option value=""></option>
-            <option value="spring">Primavera</option>
-            <option value="summer">Verano</option>
-            <option value="fall">Otoño</option>
-            <option value="winter">Invierno</option>
-          </select>
-        </p>
-        <p>
-          <label>Acerca</label>
-          <input
-            id="about"
-            type="text"
-            name="about"
-            onChange={handleInputChange}
-          />
-        </p>
-        <div>
-          <label>Paises que la desarrollan:</label>
-          <input
-            id="datalistA"
-            name="countriesAssociated"
-            className={errors.Nombre && "danger"}
-            list="association"
-            onClick={(e) => {
-              document.getElementById("datalistA").value = "";
-              document.getElementById("association").value = "";
-            }}
-            onChange={handleAssociationCuntryActivity}
-          />
-          <datalist id="association">
-            {countries.map((e, i) => {
-              return (
-                <option id={e.id} key={i} value={e.name}>
-                  {e.id}
-                </option>
-              );
-            })}
-          </datalist>
-          {errors.Country && input.countryId.length < 1 && (
-            <p className="danger">{errors.Country}</p>
-          )}
-        </div>
-      </form>
-      <div id="prevew" className="crea-containers2">
-        {input.name ? (
-          <div>
-            <div className="cardano">
-              <h1>{input.name}</h1>
-            </div>
-            <div className="text">
-              <h2>Dificultad Nivel {input.difficulty}</h2>
-              <h2>Duracion de {input.duration} Mes/es</h2>
-              <span>{input.about}</span>
-              <div className="cardano">
-                <h2>Temporada/s</h2>
-                <div className="ca">
-                  {input.temporada ? (
-                    input.temporada.map((e, i) => {
-                      return (
-                        <div key={i}>
-                          <span>{e.name}</span>
-                          <button
-                            id="temporada"
-                            className="delete"
-                            value={e.id}
-                            onClick={onClose}
-                          >
-                            X
-                          </button>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <span></span>
-                  )}
-                </div>
-              </div>
-              <div className="cardano">
-                <h2>Paises que la desarrollan: </h2>
-                <div className="ca">
-                  {input.countriesAssociated ? (
-                    input.countriesAssociated.map((e, i) => {
-                      return (
-                        <div key={i}>
-                          <span>{e.name}</span>
-                          <button
-                            id="countriesAssociated"
-                            className="delete"
-                            value={e.id}
-                            onClick={onClose}
-                          >
-                            X
-                          </button>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <span></span>
-                  )}
-                </div>
-              </div>
-              {input.countryId.length > 0 ? (
-                <button
-                  id="refresh"
-                  className="refresh"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(newActivity(input));
-                    setClear("call");
-                  }}
-                >
-                  Crear
-                </button>
-              ) : (
-                <span></span>
-              )}
-            </div>
+    <div className="biger">
+      <div className="creadors">
+        <form className="form">
+          <h2 className="back">Crea Actividades</h2>
+          <div className="back">
+            <label>Nombre:</label>
+            <input
+              type="text"
+              name="name"
+              className={errors.Nombre && "danger"}
+              onChange={handleInputChange}
+              value={input.name}
+            />
+            {errors.Nombre && !input.name && (
+              <p className="danger">{errors.Nombre}</p>
+            )}
           </div>
-        ) : (
-          <div />
-        )}
+          <p>
+            <label>Dificultad</label>
+            <input
+              id="difficulty"
+              name="difficulty"
+              type="range"
+              step="1"
+              min="1"
+              max="5"
+              defaultValue="1"
+              onChange={handleLabel}
+            />
+            <span id="labelDificulty">Nivel 1</span>
+          </p>
+          <p>
+            <label>Duracion</label>
+            <input
+              id="duration"
+              name="duration"
+              type="range"
+              step="1"
+              min="1"
+              max="12"
+              defaultValue="1"
+              onChange={handleLabel}
+            />
+            <span id="labelDuration">1 Mes</span>
+          </p>
+          <p>
+            <label>Temporada</label>
+            <select id="season" name="season" onChange={handleSeason}>
+              <option value=""></option>
+              <option value="spring">Primavera</option>
+              <option value="summer">Verano</option>
+              <option value="fall">Otoño</option>
+              <option value="winter">Invierno</option>
+            </select>
+          </p>
+          <p>
+            <label>Acerca</label>
+            <input
+              id="about"
+              type="text"
+              name="about"
+              onChange={handleInputChange}
+            />
+          </p>
+          <div className="back">
+            <label>Paises que la desarrollan</label>
+            <input
+              id="datalistA"
+              name="countriesAssociated"
+              className={errors.Nombre && "danger"}
+              list="association"
+              onClick={(e) => {
+                document.getElementById("datalistA").value = "";
+                document.getElementById("association").value = "";
+              }}
+              onChange={handleAssociationCuntryActivity}
+            />
+            <datalist id="association">
+              {countries.map((e, i) => {
+                return (
+                  <option id={e.id} key={i} value={e.name}>
+                    {e.id}
+                  </option>
+                );
+              })}
+            </datalist>
+            {errors.Country && input.countryId.length < 1 && (
+              <p className="danger">{errors.Country}</p>
+            )}
+          </div>
+        </form>
+        <div id="prevew" className="crea-containers2">
+          {input.name ? (
+            <div>
+              <div className="cardano">
+                <h1>{input.name}</h1>
+              </div>
+              <div className="text">
+                <h2>Dificultad Nivel {input.difficulty}</h2>
+                <h2>Duracion de {input.duration} Mes/es</h2>
+                <span>{input.about}</span>
+                <div className="cardano">
+                  <h2>Temporada/s</h2>
+                  <div className="ca">
+                    {input.temporada ? (
+                      input.temporada.map((e, i) => {
+                        return (
+                          <div key={i}>
+                            <span>{e.name}</span>
+                            <button
+                              id="temporada"
+                              className="delete"
+                              value={e.id}
+                              onClick={onClose}
+                            >
+                              X
+                            </button>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <span></span>
+                    )}
+                  </div>
+                </div>
+                <div className="cardano">
+                  <h2>Paises que la desarrollan: </h2>
+                  <div className="ca">
+                    {input.countriesAssociated ? (
+                      input.countriesAssociated.map((e, i) => {
+                        return (
+                          <div key={i}>
+                            <span>{e.name}</span>
+                            <button
+                              id="countriesAssociated"
+                              className="delete"
+                              value={e.id}
+                              onClick={onClose}
+                            >
+                              X
+                            </button>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <span></span>
+                    )}
+                  </div>
+                </div>
+                {input.countryId.length > 0 ? (
+                  <button
+                    id="refresh"
+                    className="refresh"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(newActivity(input));
+                      setClear("call");
+                    }}
+                  >
+                    Crear
+                  </button>
+                ) : (
+                  <span></span>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="noThing" />
+          )}
+        </div>
       </div>
     </div>
   );

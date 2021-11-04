@@ -1,5 +1,5 @@
 .cnt {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 .form-containerses {
   display: flex;
@@ -15,37 +15,6 @@
   font-size: 40px;
 }
 
-.imagen{
-  width: 250px;
-  height: 150px;
-}
-
-.cards {  
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.label {
-    padding-right: 10px;
-}
-.pokedex {
-  text-align: center;
-  width:50px;
-  height:50px;
-  /* background: url("pokedex.gif") no-repeat; */
-  background-size: cover;
-}
-.pokedexRoto {
-  /* text-align: center; */
-  display: flex;
-  align-content: center;
-  width:200px;
-  height:200px;
-  /* background: url(./pok.gif) no-repeat; */
-  background-size: contain;
-}
-
 .cardes {
   display: inline-block;
   margin: 8px;
@@ -58,18 +27,27 @@
   z-index: 1;
 }
 
-.textBox {
-  text-align: center;
-  border-radius: 10px;
-  width: 120px;
-  background-color: rgb(230, 101, 54);
-}
-
 .begin {
-  border:none;
-  color: black;
-  background-color: transparent;
-  width: 100%;
+  border-radius: 10px;
+  align-content: center;
+  transition: 0.8s ease-in-out;
+  cursor: pointer;
+  top: 235px;
+  left: 330px;
+  width: 300px;
+  height: 60px;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  letter-spacing: 1px;
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(
+    100deg,
+    #fffc64af 20%,
+    rgba(255, 230, 0, 0.418),
+    rgb(88, 75, 19),
+    #1b1b0d
+  );
 }
 
 .formas {
@@ -77,9 +55,9 @@
   background-color: transparent;
   width: 100%;
   flex-direction: row;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: justify;
-  border-bottom:solid;
+  border-bottom: solid;
 }
 
 .formas input {
@@ -95,6 +73,25 @@
   cursor: pointer;
 }
 
-.big {
-  padding-top: 60px;
+.explorer {
+  padding: 150px;
+  background-color: rgba(4, 0, 24, 0.856);
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  transition: filter 1s;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.begin:hover {
+  transition: .8s ease-in-out;
+  background-color: #000000;
+  color: white;
+  border-radius:50%;
+  -webkit-border-radius:40%;
+  box-shadow: 0px 0px 15px 15px #fffc64af;
+  -webkit-box-shadow: 0px 0px 15px 15px #fffc64af;
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
 }

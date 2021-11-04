@@ -122,7 +122,7 @@ export default function Filter() {
     }
   };
 
-  if (countries && countries[0].Activities !== undefined) {
+  if (countries[1] && countries[0].Activities !== undefined) {
     let arr =
       countries[0].Activities &&
       countries.filter((e) => {

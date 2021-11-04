@@ -15,6 +15,7 @@
   align-items: flex-start;
   flex-wrap: wrap;
   align-content: center;
+  /* padding-bottom: 500px; */
 }
 .link {
   color: black;
@@ -22,17 +23,17 @@
 }
 
 .inProgresses {
-  /* text-align: center; */
   display: flex;
   flex: row;
   align-content: center;
   width: 300px;
   height: 300px;
-  background: url("inProgres.gif") no-repeat;
-  background-size: contain;
+  background: url("./T2T3.jpg") no-repeat;
+  background-size: cover;
+  padding-bottom: 400px;
 }
 .refresh {
-  background-color: red;
+  background-color: yellow;
   border-radius: 12px;
   width: 90px;
 }
@@ -69,28 +70,30 @@
 .form button {
   padding: 0.5em 1em;
   border: none;
-  background: rgb(255, 0, 0);
+  background: yellow;
   cursor: pointer;
 }
 
 .cardano {
   background-color: yellow;
-  margin: 20px;
-  width: 18rem;
+  margin: 10px;
+  padding: 10px;
+  width: 80%;
   color: black;
 }
 
 .ca {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   flex-direction: row;
-  justify-content: space-evenly;
 }
 
 .text {
   width: 120%;
-  background-color: orange;
-  border-radius: 15px;
+  font-size: 0.9rem;
+  color : white;
+  background-color: rgba(4, 0, 24, 0.856);
 }
 .text input {
   background-color: red;
@@ -104,8 +107,34 @@
   margin-top: 0px !important;
   padding-top: 0px !important;
 }
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+
+
+.biger {
+  background: url("./T2T3.jpg") no-repeat;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  height: 100vh;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+}
+
+.creadors {
+  padding-top: 70px;
+}
+
+p {
+  font-size: 1rem;
+  color : white;
+  background-color: rgba(4, 0, 24, 0.856);
+}
+.back {
+  font-size: 1rem;
+  color : white;
+  background-color: rgba(4, 0, 24, 0.856);
+}
+
+.noThing {
+  height: 100%;
+  width: 100%;
 }

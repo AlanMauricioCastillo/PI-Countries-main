@@ -4,6 +4,17 @@
   padding: 40px 0;
 }
 
+.bigDetail {
+  background: url("./W.jpg");
+  padding-top: 30px;
+  padding-bottom: 300px;
+  height: 100vh;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
   margin: 0 auto;
   width: 700px;
@@ -16,13 +27,24 @@
 .details {
   padding: 50px 0 0 50px;
 }
+.cardInDetail {
+  display: inline-block;
+  margin: 8px;
+  max-width: 300px;
+  perspective: 1000;
+  position: relative;
+  text-align: left;
+}
 
 .titleCapitalized {
   text-transform: capitalize;
+  text-align: center;
+  background: rgba(255, 166, 0, 0.383);
 }
+
 .titledetails {
   text-transform: capitalize;
-  color: rgb(0, 17, 75);
+  color: rgba(255, 68, 0, 0.938);
   font-size: 40px;
   margin-bottom: 13px;
   line-height: normal;
@@ -30,7 +52,7 @@
 }
 .title span {
   margin-left: 12px;
-  background: #c4af3d;
+  background: #c4b03d9b;
   border-radius: 5px;
   color: #544c21;
   font-size: 14px;
@@ -44,11 +66,25 @@
   line-height: 26px;
   color: #b1b0ac;
 }
-.cardanolo {
-  background-color: orangered;
-  margin: 20px;
-  width: 18rem;
+
+.cardanoloTop {
+  background-color: rgba(255, 68, 0, 0.671);
+  display: flex;
+  padding: 20px;
+  width: 40%;
   color: black;
+  padding: 10 px;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.cardanolo {
+  background-color: rgba(255, 68, 0, 0.794);
+  display: flex;
+  width: 100%;
+  color: black;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: space-around;
 }
 .column {
   padding-left: 41px;
@@ -66,5 +102,3 @@
   display: flex;
   flex-direction: row;
 }
-
-
