@@ -15,6 +15,13 @@
   flex-direction: column;
 }
 
+.titleDetail {
+  font-size: 40px;
+  font-weight: bold;
+  color: orangered;
+  margin-bottom: 20px;
+}
+
 .container {
   margin: 0 auto;
   width: 700px;

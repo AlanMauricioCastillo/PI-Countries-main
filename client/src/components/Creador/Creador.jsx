@@ -9,11 +9,7 @@ import "./Creador.css";
 
 export default function Creador() {
   const dispatch = useDispatch();
-  /* useEffect(() => {
-    dispatch(getTheWorld());
-  }, [dispatch]); */
   var countries = useSelector((state) => state.reserveCountries);
-  //const [call, setCall] = React.useState("");
   const [clear, setClear] = React.useState("");
   const [input, setInput] = React.useState({
     name: "",
@@ -84,7 +80,6 @@ export default function Creador() {
   }, [clear]);
 
   const onClose = (e) => {
-    //console.log(e);
     let comand = e.target.value;
     let surce = e.target.id;
     if (surce === "countriesAssociated") {
@@ -169,10 +164,10 @@ export default function Creador() {
       let inp = document.getElementById(id);
       if (id === "difficulty") {
         out = document.getElementById("labelDificulty");
-        out.innerHTML = `Nivel ${inp.value}`;
+        out.innerHTML = `Level ${inp.value}`;
       } else if (id === "duration") {
-        let diference = "Meses";
-        if (inp.value === "1") diference = "Mes";
+        let diference = "Months";
+        if (inp.value === "1") diference = "Month";
         out = document.getElementById("labelDuration");
         out.innerHTML = `${inp.value} ${diference}`;
       }
@@ -188,9 +183,9 @@ export default function Creador() {
     <div className="biger">
       <div className="creadors">
         <form className="form">
-          <h2 className="back">Crea Actividades</h2>
+          <h2 className="back">Activity Creator</h2>
           <div className="back">
-            <label>Nombre:</label>
+            <label>Name</label>
             <input
               type="text"
               name="name"
@@ -203,7 +198,7 @@ export default function Creador() {
             )}
           </div>
           <p>
-            <label>Dificultad</label>
+            <label>Dificulty</label>
             <input
               id="difficulty"
               name="difficulty"
@@ -214,10 +209,10 @@ export default function Creador() {
               defaultValue="1"
               onChange={handleLabel}
             />
-            <span id="labelDificulty">Nivel 1</span>
+            <span id="labelDificulty">Level 1</span>
           </p>
           <p>
-            <label>Duracion</label>
+            <label>Duration</label>
             <input
               id="duration"
               name="duration"
@@ -228,20 +223,20 @@ export default function Creador() {
               defaultValue="1"
               onChange={handleLabel}
             />
-            <span id="labelDuration">1 Mes</span>
+            <span id="labelDuration">1 Month</span>
           </p>
           <p>
-            <label>Temporada</label>
+            <label>Season</label>
             <select id="season" name="season" onChange={handleSeason}>
               <option value=""></option>
-              <option value="spring">Primavera</option>
-              <option value="summer">Verano</option>
-              <option value="fall">Otoño</option>
-              <option value="winter">Invierno</option>
+              <option value="spring">Spring</option>
+              <option value="summer">Summer</option>
+              <option value="fall">Fall</option>
+              <option value="winter">Winter</option>
             </select>
           </p>
           <p>
-            <label>Acerca</label>
+            <label>About</label>
             <input
               id="about"
               type="text"
@@ -250,7 +245,7 @@ export default function Creador() {
             />
           </p>
           <div className="back">
-            <label>Paises que la desarrollan</label>
+            <label>Countries that develop it</label>
             <input
               id="datalistA"
               name="countriesAssociated"
@@ -283,11 +278,11 @@ export default function Creador() {
                 <h1>{input.name}</h1>
               </div>
               <div className="text">
-                <h2>Dificultad Nivel {input.difficulty}</h2>
-                <h2>Duracion de {input.duration} Mes/es</h2>
+                <h2>Dificulty Level: {input.difficulty}</h2>
+                <h2>Duration of {input.duration} Month/s</h2>
                 <span>{input.about}</span>
                 <div className="cardano">
-                  <h2>Temporada/s</h2>
+                  <h2>Season/s</h2>
                   <div className="ca">
                     {input.temporada ? (
                       input.temporada.map((e, i) => {
@@ -311,7 +306,7 @@ export default function Creador() {
                   </div>
                 </div>
                 <div className="cardano">
-                  <h2>Paises que la desarrollan: </h2>
+                  <h2>Countries that develop it</h2>
                   <div className="ca">
                     {input.countriesAssociated ? (
                       input.countriesAssociated.map((e, i) => {
@@ -344,7 +339,7 @@ export default function Creador() {
                       setClear("call");
                     }}
                   >
-                    Crear
+                    Create
                   </button>
                 ) : (
                   <span></span>

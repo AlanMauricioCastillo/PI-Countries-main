@@ -10,10 +10,13 @@ const call = async (URL, flag) => {
       id: e.cca3,
       name: e.translations.spa.common,
       nameToSerch: e.translations.spa.common
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1")
-      .normalize(),
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(
+          /([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,
+          "$1"
+        )
+        .normalize(),
       flag: e.flags[1],
       map: e.maps.googleMaps,
       continent: e.continents[0],
@@ -57,7 +60,7 @@ const getFromId = async (req, res, next) => {
         model: Activity,
       },
     });
-    countryDb ? res.json([countryDb]) : res.send("No matches were found");
+    countryDb ? res.json([countryDb]) : res.status(404).send("No matches were found");
   } catch (error) {
     console.log(error);
     res.status(404).send("No matches were found");
@@ -67,10 +70,13 @@ const getFromId = async (req, res, next) => {
 const getFromName = async (req, res, next) => {
   const { name } = req.query;
   const lowerName = name
-  .toLowerCase()
-  .normalize('NFD')
-  .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1")
-  .normalize();
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(
+      /([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,
+      "$1"
+    )
+    .normalize();
   if (!name) res.status(404).send("Reacer el formulario");
   try {
     const result = await Country.findAll({
@@ -101,7 +107,6 @@ const getFromName = async (req, res, next) => {
 const getOrder = async (req, res, next) => {
   const { order, column } = req.params;
   try {
-    //let countries = [];
     const result = await Country.findAll({
       order: [[column, order]],
       include: {
@@ -118,10 +123,14 @@ const getOrder = async (req, res, next) => {
 
 const getFiltcontinent = async (req, res, next) => {
   const { continent } = req.params;
-  const lowerContinent = continent.toLowerCase()
-  .normalize('NFD')
-  .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1")
-  .normalize();
+  const lowerContinent = continent
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(
+      /([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,
+      "$1"
+    )
+    .normalize();
   try {
     const result = await Country.findAll({
       where: {
@@ -144,7 +153,7 @@ const getFiltcontinent = async (req, res, next) => {
       res.status(404).send(`${continent} doesn't exist`);
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 

@@ -8,7 +8,6 @@ import "./details.css";
 
 export default function Details() {
   const { countryId } = useParams();
-  //console.log(countryId);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getFromId(countryId));
@@ -32,7 +31,6 @@ export default function Details() {
 
     if (country[0].name && country[0].Activities.length > 0) {
       let arr = country[0].Activities;
-      //let arr2 = [];
       for (let i = 0; i < arr.length; i++) {
         let activities = arr[i].season.map((season) => {
           let arr2 = [];
@@ -75,7 +73,7 @@ export default function Details() {
                   Map
                 </a>
               </div>
-              <h2>Activities</h2>
+              <h2 className="titleDetail">Activities</h2>
               <hr />
               <div className="cardanolos">
                 <div className="cardanolo">
@@ -85,20 +83,18 @@ export default function Details() {
                         <div className="cardInDetail" key={i}>
                           <h3 className="titleCapitalized">{e.name}</h3>
                           <span>{e.about}</span>
-                          <h4>Duracion de {e.duration} Mes/es</h4>
-                          <h4>Temporada/s:</h4>
+                          <h4>Duration of {e.duration} Month/s</h4>
+                          <h4>Season/s:</h4>
                           {e.temporada.map((t, i) => {
                             return <p key={i}>{t}</p>;
                           })}
-                          <h4>Dificultad nivel: {e.difficulty}</h4>
+                          <h4>Dificulty of Level: {e.difficulty}</h4>
                           <hr />
                         </div>
                       );
                     })
                   ) : (
-                    <span bacgrond-color="orange">
-                      Activities: No Activity associated
-                    </span>
+                    <span bacgrond-color="orange">No Activity associated</span>
                   )}
                 </div>
               </div>
@@ -168,7 +164,7 @@ export default function Details() {
                   Map
                 </a>
               </div>
-              <h2>Activities</h2>
+              <h2 className="titleDetail">Activities</h2>
               <hr />
               <div className="cardanolo">
                 <div className="cards">
@@ -178,18 +174,18 @@ export default function Details() {
                         <div className="card" key={i}>
                           <h3 className="titleCapitalized">{e.name}</h3>
                           <span>{e.about}</span>
-                          <h4>Duracion de {e.duration} Mes/es</h4>
-                          <h4>Temporada/s:</h4>
+                          <h4>Duration of {e.duration} Mes/es</h4>
+                          <h4>Season/s:</h4>
                           {e.temporada.map((t, i) => {
                             return <p key={i}>{t}</p>;
                           })}
-                          <h4>Dificultad nivel: {e.difficulty}</h4>
+                          <h4>Dificulty of Level: {e.difficulty}</h4>
                           <hr />
                         </div>
                       );
                     })
                   ) : (
-                    <span>Activities: No Activity associated</span>
+                    <span bacgrond-color="orange">No Activity associated</span>
                   )}
                 </div>
               </div>

@@ -19,21 +19,21 @@ export default function Ordering() {
   }
 
   return (
-    <div>
+    <div className="space">
       <div>
         <p>
-          <label>Orden Alfabetico</label>
+          <label>Alphabetical order</label>
           <select name="name" onChange={(e) => handleOrder(e)}>
             <option value="refresh">All Mix</option>
             <option value="ASC">A-Z</option>
             <option value="DESC">Z-A</option>
           </select>
 
-          <label>Orden por Poblacion</label>
+          <label>Population order</label>
           <select name="population" onChange={(e) => handleOrder(e)}>
             <option value="refresh">All Mix</option>
-            <option value="DESC">Mayor a Menor</option>
-            <option value="ASC">Menor a Mayor</option>
+            <option value="DESC">higher to lower</option>
+            <option value="ASC">lower to higher</option>
           </select>
         </p>
       </div>

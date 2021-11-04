@@ -41,16 +41,19 @@ export default function Finder() {
     let found = countries.find(
       (country) => country.id === countryId.toUpperCase()
     );
-    if (found && countryId !== "" && countryId.length === 3) {
+    if (!found && countryId !== "" && countryId.length === 3) {
+      alert("Inexistent ID")
+      setCountryId("");
+    } else if (found && countryId !== "" && countryId.length === 3) {
       dispatch(getFromId(countryId));
       setCountryId("");
     } else if (countryName !== "") {
       dispatch(getFromName(countryName));
       setCountryName("");
     } else if (countryName === "" && countryId === "") {
-      alert("el campo no puede estar vacio");
+      alert("the input can't be empty");
     } else if (countryId !== "" && countryId.length !== 3) {
-      alert("el id debe ser de tres letras");
+      alert("the ID must have 3 caracters");
       setCountryId("");
       setCountryName("");
     }
@@ -65,7 +68,7 @@ export default function Finder() {
           handleSerch();
         }}
       >
-        <h3>Busqueda por Nombre</h3>
+        <h3>Search by Name</h3>
 
         <input
           name="name"
@@ -75,9 +78,9 @@ export default function Finder() {
           value={countryName}
           onChange={(e) => setCountryName(e.target.value)}
         />
-        <input type="submit" value="Buscar" />
+        <input type="submit" value="Search" />
 
-        <h3>Busqueda por Id</h3>
+        <h3>Search by Id</h3>
 
         <input
           name="id"
@@ -87,7 +90,7 @@ export default function Finder() {
           value={countryId}
           onChange={(e) => setCountryId(e.target.value)}
         />
-        <input type="submit" value="Buscar" />
+        <input type="submit" value="Search" />
       </form>
       <div className="cards">
         {currentCountries.length > 0 ? (

@@ -2,11 +2,16 @@
   padding-top: 10px;
 }
 .form-containerses {
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
   align-content: center;
+}
+
+.space {
+  padding-top: 10px;
 }
 
 .titleBuscador {

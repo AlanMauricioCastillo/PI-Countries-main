@@ -134,10 +134,10 @@ export default function Filter() {
     });
   }
   return (
-    <div>
-      <h3>Filtra por Actividad</h3>
+    <div className="space">
+      <h3>Filter by Activity</h3>
       <p>
-        <label>Nombre</label>
+        <label>Name</label>
         <select onChange={(e) => handleNameFilter(e)}>
           <option value="refresh">All</option>
           {result &&
@@ -153,7 +153,7 @@ export default function Filter() {
               );
             })}
         </select>
-        <label>Dificultad</label>
+        <label>Dificulty</label>
         <select onChange={(e) => handleDificultyFilter(e)}>
           <option value="refresh">All</option>
           <option value="1">1</option>
@@ -163,20 +163,20 @@ export default function Filter() {
           <option value="5">5</option>
         </select>
 
-        <label>Duracion</label>
+        <label>Duration</label>
         <select onChange={(e) => handleDurationFilter(e)}>
           <option value="refresh">All</option>
-          <option value="1">1 Mes</option>
+          <option value="1">1 Month</option>
           {lazy.map((item, i) => {
             return (
               <option key={i} value={item}>
-                {item} Meses
+                {item} Months
               </option>
             );
           })}
         </select>
 
-        <label>Temporada</label>
+        <label>Season</label>
         <select onChange={(e) => handleSeasonFilter(e)}>
           <option value="refresh">All</option>
           <option value="spring">Primavera</option>
@@ -185,21 +185,22 @@ export default function Filter() {
           <option value="winter">Invierno</option>
         </select>
       </p>
-
-      <h3>Filtrar por Continente</h3>
-      <p>
-        <label>Continente</label>
-        <select onChange={(e) => handleContinentFilter(e)}>
-          <option value="refresh">All</option>
-          <option value="south america">South america</option>
-          <option value="europe">Europe</option>
-          <option value="antarctica">Antarctica</option>
-          <option value="asia">Asia</option>
-          <option value="africa">Africa</option>
-          <option value="north america">North america</option>
-          <option value="oceania">Oceania</option>
-        </select>
-      </p>
+      <div className="space">
+        <h3>Filter by Continent</h3>
+        <p>
+          <label>Continent</label>
+          <select onChange={(e) => handleContinentFilter(e)}>
+            <option value="refresh">All</option>
+            <option value="south america">South america</option>
+            <option value="europe">Europe</option>
+            <option value="antarctica">Antarctica</option>
+            <option value="asia">Asia</option>
+            <option value="africa">Africa</option>
+            <option value="north america">North america</option>
+            <option value="oceania">Oceania</option>
+          </select>
+        </p>
+      </div>
     </div>
   );
 }
