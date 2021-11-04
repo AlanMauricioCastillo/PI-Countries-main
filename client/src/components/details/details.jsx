@@ -36,7 +36,6 @@ export default function Details() {
       for (let i = 0; i < arr.length; i++) {
         let activities = arr[i].season.map((season) => {
           let arr2 = [];
-          console.log(season);
           if (season === "summer") {
             arr2.push("Verano");
           }
@@ -97,7 +96,9 @@ export default function Details() {
                       );
                     })
                   ) : (
-                    <span bacgrond-color="orange" >Activities: No Activity associated</span>
+                    <span bacgrond-color="orange">
+                      Activities: No Activity associated
+                    </span>
                   )}
                 </div>
               </div>
@@ -122,14 +123,12 @@ export default function Details() {
       map,
     } = country;
 
-    console.log(country);
     if (country.name && country.Activities.length > 0) {
       let arr = country.Activities;
       //let arr2 = [];
       for (let i = 0; i < arr.length; i++) {
         let activities = arr[i].season.map((season) => {
           let arr2 = [];
-          console.log(season);
           if (season === "summer") {
             arr2.push("Verano");
           }
