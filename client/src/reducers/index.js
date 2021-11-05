@@ -7,7 +7,6 @@ import {
   CONTINENT_FILTER,
   CLEAR_WORLD,
   SWITCH_PAGED,
-  SWITCH_BUTTON,
   CLEAR,
   RE_RENDER_COUNTRIES,
   SHOW_HIDE,
@@ -21,7 +20,6 @@ const initialState = {
   countriesOnscreen: [],
   switchDisplay: "Explore",
   switchPaged: "notFiltering",
-  switchButton: "begin",
   error: [],
 };
 
@@ -160,11 +158,6 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         switchPaged: action.payload,
-      };
-      case SWITCH_BUTTON:
-      return {
-        ...state,
-        switchButton: action.payload,
       };
     case RE_RENDER_COUNTRIES:
       const mountAgain = [...state.reserveCountries];

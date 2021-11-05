@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { clearDetails } from "../../actions/clearDetails";
-import { switchButton } from "../../actions/SwitchButton";
 import { showHide } from "../../actions/showHide";
 import Ordering from "./Ordering/Ordering";
 import Filter from "./Filter/Filter";
@@ -13,7 +12,7 @@ import "./Buscador.css";
 export default function FindAndFilt() {
   const dispatch = useDispatch();
   var switchDisplay = useSelector((state) => state.switchDisplay);
-  var switchButt = useSelector((state) => state.switchButton);
+  const [switchButton, setSwitchButton] = React.useState("begin");
   let regulateTheSize = "explorer";
   if (switchDisplay === "Home") {
     regulateTheSize = "exploring";
@@ -35,18 +34,18 @@ export default function FindAndFilt() {
   }, [dispatch, switchDisplay]);
 
   setTimeout(() => {
-    if (switchButt === "begin") {
-      dispatch(switchButton("begin2"));
+    if (switchButton === "begin") {
+      setSwitchButton("begin2");
     } else {
-      dispatch(switchButton("begin"));
+      setSwitchButton("begin");
     }
-  }, 4000);
+  }, 3200);
 
   return (
     <div className={`${regulateTheSize}`}>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a
-        className={`${switchButt}`}
+        className={`${switchButton}`}
         id="displayNone"
         onClick={() => {
           switchDisplay === "Home"
