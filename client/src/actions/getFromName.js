@@ -8,7 +8,7 @@ export function getFromName(name) {
       const call = await axios.get(CALL.BY_NAME + name);
       dispatch({ type: GET_BY_NAME, payload: call.data });
     } catch (e) {
-      alert("¡Pais inexistente!");
+      alert("non-existent country!");
     }
   };
 }

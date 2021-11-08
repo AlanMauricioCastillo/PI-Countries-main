@@ -275,7 +275,7 @@ export default function Creador() {
           {input.name ? (
             <div>
               <div className="cardano">
-                <h1>{input.name}</h1>
+                <h1 style={{"textTransform": "capitalize"}}>{input.name}</h1>
               </div>
               <div className="text">
                 <h2>Dificulty Level: {input.difficulty}</h2>

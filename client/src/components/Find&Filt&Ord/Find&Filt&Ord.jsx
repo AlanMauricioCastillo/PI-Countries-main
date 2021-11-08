@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { clearDetails } from "../../actions/clearDetails";
 import { showHide } from "../../actions/showHide";
 import Ordering from "./Ordering/Ordering";
@@ -11,6 +11,7 @@ import "./Buscador.css";
 
 export default function FindAndFilt() {
   const dispatch = useDispatch();
+  const mountedRef = useRef(true)
   var switchDisplay = useSelector((state) => state.switchDisplay);
   const [switchButton, setSwitchButton] = React.useState("begin");
   let regulateTheSize = "explorer";
@@ -33,6 +34,8 @@ export default function FindAndFilt() {
     }
   }, [dispatch, switchDisplay]);
 
+  useEffect(() => {
+    if (mountedRef.current) {
   setTimeout(() => {
     if (switchButton === "begin") {
       setSwitchButton("begin2");
@@ -40,6 +43,14 @@ export default function FindAndFilt() {
       setSwitchButton("begin");
     }
   }, 3200);
+}
+  }, [mountedRef, switchButton]);
+
+  useEffect(() => {
+    return () => { 
+      mountedRef.current = false
+    }
+  }, [])
 
   return (
     <div className={`${regulateTheSize}`}>
