@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { clearDetails } from "../../actions/clearDetails";
+import { switchPaged as switchPage } from "../../actions/switchPaged";
 import { showHide } from "../../actions/showHide";
 import Ordering from "./Ordering/Ordering";
 import Filter from "./Filter/Filter";
@@ -11,7 +12,7 @@ import "./Buscador.css";
 
 export default function FindAndFilt() {
   const dispatch = useDispatch();
-  const mountedRef = useRef(true)
+  const mountedRef = useRef(true);
   var switchDisplay = useSelector((state) => state.switchDisplay);
   const [switchButton, setSwitchButton] = React.useState("begin");
   let regulateTheSize = "explorer";
@@ -36,34 +37,36 @@ export default function FindAndFilt() {
 
   useEffect(() => {
     if (mountedRef.current) {
-  setTimeout(() => {
-    if (switchButton === "begin") {
-      setSwitchButton("begin2");
-    } else {
-      setSwitchButton("begin");
+      setTimeout(() => {
+        if (switchButton === "begin") {
+          setSwitchButton("begin2");
+        } else {
+          setSwitchButton("begin");
+        }
+      }, 3200);
     }
-  }, 3200);
-}
   }, [mountedRef, switchButton]);
 
   useEffect(() => {
-    return () => { 
-      mountedRef.current = false
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
+  const HandleSwith = () => {
+    if (switchDisplay === "Home") {
+      dispatch(showHide("Explore"));
+      dispatch(switchPage("notFiltering"));
+    } else {
+      dispatch(showHide("Home"));
+      dispatch(switchPage("filtering"));
     }
-  }, [])
+  };
 
   return (
     <div className={`${regulateTheSize}`}>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-      <a
-        className={`${switchButton}`}
-        id="displayNone"
-        onClick={() => {
-          switchDisplay === "Home"
-            ? dispatch(showHide("Explore"))
-            : dispatch(showHide("Home"));
-        }}
-      >
+      <a className={`${switchButton}`} id="displayNone" onClick={HandleSwith}>
         {switchDisplay}
       </a>
       <div id="hide-me" className="formas">

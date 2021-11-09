@@ -11,10 +11,17 @@ import { useEffect } from "react";
 export default function Filter() {
   const dispatch = useDispatch();
   var countries = useSelector((state) => state.reserveCountries);
+  var currentPage = useSelector((state) => state.switchPaged);
 
   useEffect(() => {
     dispatch(reRenderCountries(countries));
   }, [countries, dispatch]);
+
+  useEffect(() => {
+    if (currentPage === "notFiltering") {
+      dispatch(reRenderCountries());
+    }
+  }, [currentPage, dispatch]);
 
   let lazy = [],
     i = 2;
@@ -133,6 +140,7 @@ export default function Filter() {
       return arr2.flat().indexOf(item) === index;
     });
   }
+
   return (
     <div className="space">
       <h3>Filter by Activity</h3>

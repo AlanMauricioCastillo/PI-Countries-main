@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Paginado from "../Paginado/Paginado.jsx";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { switchPaged as switchPage } from "../../actions/switchPaged";
 import { getTheWorld } from "../../actions/getTheWorld.js";
 import "./Main.css";
 
@@ -12,11 +13,12 @@ export default function Main() {
   var base = useSelector((state) => state.reserveCountries);
   let length = "";
   let currentVewes = "bodies";
-  if(base.length !== 0){
+  if (base.length !== 0) {
     length = base[0].Activities !== undefined && base[0].Activities.length;
   }
   useEffect(() => {
     dispatch(getTheWorld());
+    dispatch(switchPage("notFiltering"));
   }, [length.length, dispatch]);
 
   var switchPaged = useSelector((state) => state.switchPaged);
