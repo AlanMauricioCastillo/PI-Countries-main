@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { clearDetails } from "../../actions/clearDetails";
 import { switchPaged as switchPage } from "../../actions/switchPaged";
 import { showHide } from "../../actions/showHide";
@@ -12,7 +12,6 @@ import "./Buscador.css";
 
 export default function FindAndFilt() {
   const dispatch = useDispatch();
-  const mountedRef = useRef(true);
   var switchDisplay = useSelector((state) => state.switchDisplay);
   const [switchButton, setSwitchButton] = React.useState("begin");
   let regulateTheSize = "explorer";
@@ -35,23 +34,17 @@ export default function FindAndFilt() {
     }
   }, [dispatch, switchDisplay]);
 
-  useEffect(() => {
-    if (mountedRef.current) {
-      setTimeout(() => {
-        if (switchButton === "begin") {
-          setSwitchButton("begin2");
-        } else {
-          setSwitchButton("begin");
-        }
-      }, 3200);
-    }
-  }, [mountedRef, switchButton]);
 
   useEffect(() => {
-    return () => {
-      mountedRef.current = false;
-    };
-  }, []);
+    let timerId = setTimeout(() => {
+      if (switchButton === "begin") {
+        setSwitchButton("begin2");
+      } else {
+        setSwitchButton("begin");
+      }
+    }, 3200);
+    return () =>  clearTimeout(timerId)
+  }, [switchButton]);
 
   const HandleSwith = () => {
     if (switchDisplay === "Home") {
