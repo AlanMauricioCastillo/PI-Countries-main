@@ -2,10 +2,10 @@
 export default function Validador(input) {
   let errors = {};
   if (!input.name) {
-    errors.Nombre = "El campo Nombre no puede estar vacio";
+    errors.Nombre = "Input name cannot be empty";
   }
   if (input.countryId.length < 1) {
-    errors.Country = "Debe elegir al menos un pais";
+    errors.Country = "Should choose at least one country";
   }
   
   return errors;
