@@ -52,19 +52,22 @@ const getAll = async (req, res, next) => {
   }
 };
 
-const getFromId = async (req, res, next) => {
+const getFromId = (req, res, next) => {
   const { id } = req.params;
-  try {
-    const countryDb = await Country.findByPk(id.toUpperCase(), {
-      include: {
-        model: Activity,
-      },
+  Country.findByPk(id.toUpperCase(), {
+    include: {
+      model: Activity,
+    },
+  })
+    .then((countryDb) => {
+      countryDb
+        ? res.json([countryDb])
+        : res.status(404).send("No matches were found");
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send("No matches were found");
     });
-    countryDb ? res.json([countryDb]) : res.status(404).send("No matches were found");
-  } catch (error) {
-    console.log(error);
-    res.status(404).send("No matches were found");
-  }
 };
 
 const getFromName = async (req, res, next) => {
