@@ -1,5 +1,5 @@
 //http://localhost:3001/Pokemons
-const BASE = "http://localhost:3001";
+const BASE = "";
 export const CALL = {
   MAIN: BASE + "/Country",
   BY_NAME: BASE + "/Country?name=", // + nombre
