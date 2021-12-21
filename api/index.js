@@ -25,12 +25,5 @@ conn.sync({ force: false }).then(() => {
   server.listen(process.env.PORT, () => {
     console.log(`%s listening at ${process.env.PORT}`); // eslint-disable-line no-console
   });
-})
-.catch((e) => console.log(e))
-    .then(() => peticionApi())
-    .catch((e) => console.log(e))
-    .then(() => createRoles())
-    .catch((e) => console.log(e))
-    .then(() => console.log('base de datos creada exitosamente'))
-    
+});
 
