@@ -10,7 +10,7 @@ export function order(order, column) {
       data.forEach(function (e) { e.flag = e.flag_url || e.flag || ""; });
       dispatch({ type: ORDER, payload: data });
     } catch (e) {
-      console.log(e);
+
     }
   };
 }

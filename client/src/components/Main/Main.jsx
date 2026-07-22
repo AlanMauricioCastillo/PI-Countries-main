@@ -27,7 +27,7 @@ export default function Main() {
   const [countriesPerPage /* setCountriesPerPage */] = React.useState(10);
   const indexOfLastCountry = currentPage * countriesPerPage;
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
-  console.log("countries", countries);
+
   const currentCountries = countries.slice(
     indexOfFirstCountry,
     indexOfLastCountry
@@ -50,13 +50,13 @@ export default function Main() {
 
   let set = new Set(currentCountries.map(JSON.stringify));
   let arrSinDuplicaciones = Array.from(set).map(JSON.parse);
-  console.log(`arrSinDuplicaciones`, arrSinDuplicaciones);
+
   return (
     <div className={`${currentVewes}`}>
       <div id="main" className="cards">
         {arrSinDuplicaciones.length ? (
           arrSinDuplicaciones.map((e) => {
-            console.log("e main", e);
+
             return (
               <div key={e.id} className="card">
                 <Link to={`/country/${e.id}`} className="link">
