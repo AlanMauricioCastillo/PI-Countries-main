@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./store/index.js";
 import reportWebVitals from "./reportWebVitals";
 
-  axios.defaults.baseURL = 'http://localhost:8000';
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 axios.interceptors.request.use(function (config) {
   const token = localStorage.getItem('auth_token');
