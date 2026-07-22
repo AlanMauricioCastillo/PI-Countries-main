@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import "./animations.css";
 import App from "./App";
 import axios from 'axios';
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import store from "./store/index.js";
 import reportWebVitals from "./reportWebVitals";
+import "./responsive.css";
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 axios.defaults.baseURL = API_URL;

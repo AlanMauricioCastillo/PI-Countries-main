@@ -21,7 +21,7 @@ export default function FavoritesPage() {
 
   if (!token) {
     return (
-      <div className="favorites-page">
+      <div className="favorites-page bg-page">
         <h2>Favorites</h2>
         <p>Please <Link to="/login">login</Link> to see your favorites.</p>
       </div>
@@ -29,7 +29,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="favorites-page">
+    <div className="favorites-page bg-page">
       <h2>My Favorite Countries</h2>
       {favorites.length === 0 ? (
         <p>No favorites yet. Browse countries and add some!</p>

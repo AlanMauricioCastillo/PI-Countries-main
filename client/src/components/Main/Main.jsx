@@ -50,7 +50,7 @@ export default function Main() {
   let set = new Set(currentCountries.map(JSON.stringify));
   let arrSinDuplicaciones = Array.from(set).map(JSON.parse);
   return (
-    <div className={`${currentVewes}`}>
+    <div className={`${currentVewes} bg-page`}>
       <div id="main" className="cards">
         {arrSinDuplicaciones.length ? (
           arrSinDuplicaciones.map((e) => {

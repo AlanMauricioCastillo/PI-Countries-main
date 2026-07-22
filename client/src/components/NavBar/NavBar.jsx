@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../actions/auth";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import "./Navbar.css";
 
 export default function NavBar() {
@@ -43,6 +44,7 @@ export default function NavBar() {
           </li>
         </ul>
       </nav>
+      <ThemeToggle />
     </header>
   );
 }

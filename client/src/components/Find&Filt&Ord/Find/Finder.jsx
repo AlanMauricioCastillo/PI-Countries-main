@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { clearDetails } from "../../../actions/clearDetails.js";
 import { getFromName } from "../../../actions/getFromName.js";
 import { getFromId } from "../../../actions/getFromId.js";
@@ -10,18 +10,29 @@ import { Link } from "react-router-dom";
 import Paginado from "../../Paginado/Paginado.jsx";
 import "./Finder.css"
 
+function debounce(fn, ms) {
+  let timer;
+  const debounced = (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), ms);
+  };
+  debounced.cancel = () => clearTimeout(timer);
+  return debounced;
+}
+
 export default function Finder() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearDetails());
   }, [dispatch]);
 
-  var country = useSelector((state) => state.countriesDetail);
-  var countries = useSelector((state) => state.reserveCountries);
+  const country = useSelector((state) => state.countriesDetail);
+  const countries = useSelector((state) => state.reserveCountries);
   const [countryName, setCountryName] = React.useState("");
   const [countryId, setCountryId] = React.useState("");
   const [currentPage, setCurrentPage] = React.useState(1);
   const [countriesPerPage /* setCountriesPerPage */] = React.useState(10);
+  const [loading, setLoading] = React.useState(false);
   const indexOfLastCountry = currentPage * countriesPerPage;
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
   const currentCountries = country.slice(
@@ -37,7 +48,31 @@ export default function Finder() {
     setCurrentPage(1);
   }, [countries]);
 
-  const handleSerch = () => {
+  const debouncedSearch = useRef(
+    debounce((name) => {
+      if (name.trim() !== "") {
+        dispatch(getFromName(name)).finally(() => setLoading(false));
+      } else {
+        dispatch(clearDetails());
+        setLoading(false);
+      }
+    }, 300)
+  ).current;
+
+  useEffect(() => {
+    return () => debouncedSearch.cancel();
+  }, [debouncedSearch]);
+
+  const handleNameChange = useCallback((e) => {
+    const value = e.target.value;
+    setCountryName(value);
+    if (value.trim() !== "") {
+      setLoading(true);
+    }
+    debouncedSearch(value);
+  }, [debouncedSearch]);
+
+  const handleSearchById = () => {
     let found = countries.find(
       (country) => country.id === countryId.toUpperCase()
     );
@@ -47,39 +82,43 @@ export default function Finder() {
     } else if (found && countryId !== "" && countryId.length === 3) {
       dispatch(getFromId(countryId));
       setCountryId("");
-    } else if (countryName !== "") {
-      dispatch(getFromName(countryName));
-      setCountryName("");
-    } else if (countryName === "" && countryId === "") {
-      alert("the input can't be empty");
     } else if (countryId !== "" && countryId.length !== 3) {
       alert("the ID must have 3 caracters");
       setCountryId("");
       setCountryName("");
+    } else if (countryId === "") {
+      alert("the input can't be empty");
     }
   };
 
   return (
     <div className="form-containerses">
+      <div className="search-name-section">
+        <h3>Search by Name</h3>
+
+        <div className="search-name-wrapper">
+          <input
+            name="name"
+            id="name"
+            type="text"
+            placeholder="Country Nombre..."
+            value={countryName}
+            onChange={handleNameChange}
+          />
+          {loading && <span className="search-spinner" />}
+        </div>
+        {!loading && countryName.trim() !== "" && country.length > 0 && (
+          <span className="results-count">{country.length} result{country.length !== 1 ? "s" : ""} found</span>
+        )}
+      </div>
+
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          clearDetails();
-          handleSerch();
+          dispatch(clearDetails());
+          handleSearchById();
         }}
       >
-        <h3>Search by Name</h3>
-
-        <input
-          name="name"
-          id="name"
-          type="text"
-          placeholder="Country Nombre..."
-          value={countryName}
-          onChange={(e) => setCountryName(e.target.value)}
-        />
-        <input type="submit" value="Search" />
-
         <h3>Search by Id</h3>
 
         <input

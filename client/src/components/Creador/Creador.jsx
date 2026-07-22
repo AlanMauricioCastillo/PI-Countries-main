@@ -186,7 +186,7 @@ export default function Creador() {
   };
 
   return (
-    <div className="biger">
+    <div className="biger bg-page">
       <div className="creadors">
         <form className="form">
           <h2 className="back">Activity Creator</h2>

@@ -1,8 +1,22 @@
-.title {
-  color: black;
-}
 .bodyse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
   text-align: center;
-  height: 100vh;
-  background-size: cover;
+  gap: 24px;
+}
+
+.title {
+  color: var(--text-primary);
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.bodyse img {
+  max-width: 300px;
+  border-radius: var(--radius-md);
+  opacity: 0.8;
 }

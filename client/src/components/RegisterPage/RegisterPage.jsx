@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { registerUser } from "../../actions/auth";
+import "../AuthForm.css";
 import "./RegisterPage.css";
 
 export default function RegisterPage() {
@@ -34,7 +35,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="register-page">
+    <div className="register-page bg-page">
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Register</h2>
         {error && <p className="error">{error}</p>}
