@@ -78,6 +78,7 @@ export default function Creador() {
       });
     }
     setClear("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clear]);
 
   const onClose = (e) => {
