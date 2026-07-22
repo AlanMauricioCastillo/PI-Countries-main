@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./store/index.js";
 import reportWebVitals from "./reportWebVitals";
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
 
 ReactDOM.render(
   <React.StrictMode>
