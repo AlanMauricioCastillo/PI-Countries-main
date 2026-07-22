@@ -1,11 +1,12 @@
-//http://localhost:3001/Pokemons
-const BASE = "";
+const BASE = "http://localhost:8000";
 export const CALL = {
-  MAIN: BASE + "/Country",
-  BY_NAME: BASE + "/Country?name=", // + nombre
-  BY_ID: BASE + "/Country/", // + id
-  //ACTIVITIES: BASE + "/Activity",
-  NEW: BASE + "/Activity", // va esto mas una coma mas el estado ej: axios(new, estate)
-  ORDER: BASE + "/Country/order/", // + order + "/" + column
-  CONTINENT_FILTER: BASE + "/Country/continentFilter/" // + continent
+  MAIN: BASE + "/countries",
+  BY_NAME: BASE + "/countries?name=",
+  BY_ID: BASE + "/countries/",
+  NEW: BASE + "/activity",
+  ORDER: BASE + "/countries?sort=",
+  CONTINENT_FILTER: BASE + "/countries?continent="
 };
+export const URL_BASE = "http://localhost:8000";
+export const COUNTRY = "/countries";
+export const ACTIVITY = "/activity";

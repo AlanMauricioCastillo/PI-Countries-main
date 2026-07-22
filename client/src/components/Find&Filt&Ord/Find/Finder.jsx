@@ -95,6 +95,7 @@ export default function Finder() {
       <div className="cards">
         {currentCountries.length > 0 ? (
           currentCountries.map((e) => {
+    
             return (
               <div key={e.id} className="card">
                 <Link to={`/country/${e.id}`} className="link">

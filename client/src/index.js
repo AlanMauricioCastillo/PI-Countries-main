@@ -8,7 +8,27 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./store/index.js";
 import reportWebVitals from "./reportWebVitals";
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+  axios.defaults.baseURL = 'http://localhost:8000';
+
+axios.interceptors.request.use(function (config) {
+  const token = localStorage.getItem('auth_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
+
+axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (error.response && error.response.status === 401) {
+    localStorage.removeItem('auth_token');
+    window.location.href = '/login';
+  }
+  return Promise.reject(error);
+});
 
 ReactDOM.render(
   <React.StrictMode>

@@ -24,16 +24,21 @@ const initialState = {
 };
 
 export default function rootReducer(state = initialState, action) {
+  const payload = action.payload && action.payload.items ? action.payload.items : action.payload;
   switch (action.type) {
     case WORLD:
-      if (action.payload[0].Activities !== undefined) {
-        action.payload.forEach((e) => {
+      payload.forEach(function (e) {
+        e.flag = e.flag_url || e.flag || "";
+        e.Activities = e.activities || e.Activities || [];
+      });
+      if (payload[0].Activities !== undefined) {
+        payload.forEach((e) => {
           e.Activities.sort((a, b) => {
             return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
           });
         });
 
-        action.payload.forEach((e) => {
+        payload.forEach((e) => {
           const setObj = new Set();
           const unicos = e.Activities.reduce((acc, activity) => {
             if (!setObj.has(activity.name)) {
@@ -46,7 +51,7 @@ export default function rootReducer(state = initialState, action) {
         });
         let arr = [];
         state.countriesActivityFilter = [];
-        arr = action.payload.filter((e) => {
+        arr = payload.filter((e) => {
           return e.Activities.length > 0 && e.Activities;
         });
         let arrFiltered = arr.map((e) => {
@@ -59,8 +64,8 @@ export default function rootReducer(state = initialState, action) {
         arr = [...arrFiltered, state.countriesActivityFilter];
         return {
           ...state,
-          reserveCountries: action.payload,
-          countriesOnscreen: action.payload,
+          reserveCountries: payload,
+          countriesOnscreen: payload,
           countriesActivityFilter: [
             ...state.countriesActivityFilter,
             arr.flat(),
@@ -71,8 +76,8 @@ export default function rootReducer(state = initialState, action) {
         arr = [...arr, state.countriesActivityFilter];
         return {
           ...state,
-          reserveCountries: action.payload,
-          countriesOnscreen: action.payload,
+          reserveCountries: payload,
+          countriesOnscreen: payload,
           countriesActivityFilter: [
             ...state.countriesActivityFilter,
             arr.flat(),
@@ -80,35 +85,38 @@ export default function rootReducer(state = initialState, action) {
         };
       }
     case GET_BY_ID:
-      action.payload.forEach((e) => {
-        e.Activities.sort((a, b) => {
-          return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
-        });
-      });
-
-      action.payload.forEach((e) => {
-        const setObj = new Set();
-        const unicos = e.Activities.reduce((acc, activity) => {
-          if (!setObj.has(activity.name)) {
-            setObj.add(activity.name, activity);
-            acc.push(activity);
-          }
-          return acc;
-        }, []);
-        e.Activities = unicos;
+      const p = Array.isArray(payload) ? payload : [payload];
+      p.forEach((e) => {
+        e.flag = e.flag_url || e.flag || "";
+        e.Activities = e.activities || e.Activities || [];
+        e.map = e.map_url || e.links?.google_maps || "";
+        const acts = e.Activities;
+        if (acts.length > 0) {
+          acts.sort((a, b) => {
+            return (b.CountryActivity?.ActivityId || b.id || 0) - (a.CountryActivity?.ActivityId || a.id || 0);
+          });
+          const setObj = new Set();
+          e.Activities = acts.reduce((acc, activity) => {
+            if (!setObj.has(activity.name)) {
+              setObj.add(activity.name, activity);
+              acc.push(activity);
+            }
+            return acc;
+          }, []);
+        }
       });
       return {
         ...state,
-        countriesDetail: action.payload,
+        countriesDetail: p,
       };
     case GET_BY_NAME:
-      action.payload.forEach((e) => {
+      payload.forEach((e) => {
         e.Activities.sort((a, b) => {
           return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
         });
       });
 
-      action.payload.forEach((e) => {
+      payload.forEach((e) => {
         const setObj = new Set();
         const unicos = e.Activities.reduce((acc, activity) => {
           if (!setObj.has(activity.name)) {
@@ -121,43 +129,43 @@ export default function rootReducer(state = initialState, action) {
       });
       return {
         ...state,
-        countriesDetail: action.payload,
+        countriesDetail: payload,
       };
     case ORDER:
       return {
         ...state,
-        countriesOnscreen: action.payload,
+        countriesOnscreen: payload,
       };
     case ACTIVITY_FILTER:
       return {
         ...state,
-        countriesOnscreen: action.payload,
+        countriesOnscreen: payload,
       };
     case CONTINENT_FILTER:
       return {
         ...state,
-        countriesOnscreen: action.payload,
+        countriesOnscreen: payload,
       };
     case CLEAR:
       return {
         ...state,
-        countriesDetail: action.payload,
+        countriesDetail: payload,
       };
     case CLEAR_WORLD:
       return {
         ...state,
-        reserveCountries: action.payload,
-        countriesActivityFilter: action.payload,
+        reserveCountries: payload,
+        countriesActivityFilter: payload,
       };
     case SHOW_HIDE:
       return {
         ...state,
-        switchDisplay: action.payload,
+        switchDisplay: payload,
       };
     case SWITCH_PAGED:
       return {
         ...state,
-        switchPaged: action.payload,
+        switchPaged: payload,
       };
     case RE_RENDER_COUNTRIES:
       const mountAgain = [...state.reserveCountries];
@@ -172,11 +180,11 @@ export default function rootReducer(state = initialState, action) {
         let a = [];
         state.countriesActivityFilter[0].forEach((e) => {
           existent.push({
-            id: (a = action.payload.countryId.map((element) => {
+            id: (a = payload.countryId.map((element) => {
               return element === e.id ? true : false;
             })),
             name: e.Activities.map((name) => {
-              return name.name === action.payload.name;
+              return name.name === payload.name;
             }),
           });
         });
@@ -187,12 +195,12 @@ export default function rootReducer(state = initialState, action) {
         if (found) {
           alert("the Activity was updated in some countries");
           let arr = [];
-          action.payload.countryId.forEach((e) => {
+          payload.countryId.forEach((e) => {
             return arr.push({
               id: e,
               Activities: [
                 {
-                  name: action.payload.name,
+                  name: payload.name,
                 },
               ],
             });
@@ -207,12 +215,12 @@ export default function rootReducer(state = initialState, action) {
         } else {
           alert("¡Well done Activity created!");
           let arr = [];
-          action.payload.countryId.forEach((e) => {
+          payload.countryId.forEach((e) => {
             return arr.push({
               id: e,
               Activities: [
                 {
-                  name: action.payload.name,
+                  name: payload.name,
                 },
               ],
             });
@@ -222,12 +230,12 @@ export default function rootReducer(state = initialState, action) {
       if (state.countriesActivityFilter[0].length < 1) {
         alert("¡Well done Activity created!");
         let arr = [];
-        action.payload.countryId.forEach((e) => {
+        payload.countryId.forEach((e) => {
           return arr.push({
             id: e,
             Activities: [
               {
-                name: action.payload.name,
+                name: payload.name,
               },
             ],
           });

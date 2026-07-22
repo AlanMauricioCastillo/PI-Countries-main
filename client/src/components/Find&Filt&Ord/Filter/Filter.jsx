@@ -197,16 +197,16 @@ export default function Filter() {
         <h3>Filter by Continent</h3>
         <p>
           <label>Continent</label>
-          <select onChange={(e) => handleContinentFilter(e)}>
-            <option value="refresh">All</option>
-            <option value="south america">South america</option>
-            <option value="europe">Europe</option>
-            <option value="antarctica">Antarctica</option>
-            <option value="asia">Asia</option>
-            <option value="africa">Africa</option>
-            <option value="north america">North america</option>
-            <option value="oceania">Oceania</option>
-          </select>
+      <select onChange={(e) => handleContinentFilter(e)}>
+        <option value="refresh">All</option>
+        <option value="americas">South america</option>
+        <option value="europe">Europe</option>
+        <option value="antarctic">Antarctica</option>
+        <option value="asia">Asia</option>
+        <option value="africa">Africa</option>
+        <option value="americas">North america</option>
+        <option value="oceania">Oceania</option>
+      </select>
         </p>
       </div>
     </div>
