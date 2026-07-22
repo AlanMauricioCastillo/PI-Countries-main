@@ -7,6 +7,9 @@ import Main from "./components/Main/Main.jsx";
 import Creador from "./components/Creador/Creador.jsx";
 import FirsContact from "./components/Primer contacto/First contact.jsx";
 import NotFound from "./components/No encontrado/NotFound";
+import LoginPage from "./components/LoginPage/LoginPage";
+import RegisterPage from "./components/RegisterPage/RegisterPage";
+import FavoritesPage from "./components/FavoritesPage/FavoritesPage";
 import "./App.css";
 
 function App() {
@@ -25,12 +28,18 @@ function App() {
             <Main />
           </Route>
 
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/favorites" component={FavoritesPage} />
+
           <Route path="*" component={NotFound} />
         </Switch>
 
         <Route path="/country" component={NavBar} />
-
         <Route path="/activityCreator" component={NavBar} />
+        <Route path="/favorites" component={NavBar} />
+        <Route path="/login" component={NavBar} />
+        <Route path="/register" component={NavBar} />
       </div>
     </BrowserRouter>
   );

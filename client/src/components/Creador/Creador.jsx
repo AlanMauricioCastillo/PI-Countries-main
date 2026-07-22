@@ -20,13 +20,13 @@ export default function Creador() {
     about: "",
     countriesAssociated: [],
     countryId: [],
+    risk_level: "1",
   });
   const [errors, setErrors] = React.useState({});
 
   useEffect(() => {
     dispatch(getTheWorld());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clear]);
+  }, [clear, dispatch]);
 
   const handleAssociationCuntryActivity = (e) => {
     let comand = e.target.value;
@@ -60,6 +60,7 @@ export default function Creador() {
     if (clear !== "") {
       resetRanges("difficulty");
       resetRanges("duration");
+      resetRanges("risk_level");
       handleLabel(null);
       document.getElementById("about").value = "";
       document.getElementById("season").value = "";
@@ -73,10 +74,10 @@ export default function Creador() {
         about: "",
         countriesAssociated: [],
         countryId: [],
+        risk_level: "1",
       });
     }
     setClear("");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clear]);
 
   const onClose = (e) => {
@@ -137,7 +138,7 @@ export default function Creador() {
       }
     }
     if (comand === "fall") {
-      let a = "Otoño";
+      let a = "Otono";
       if (!input.season.includes(comand)) {
         valueName.push({ name: a, id: comand });
       }
@@ -170,12 +171,17 @@ export default function Creador() {
         if (inp.value === "1") diference = "Month";
         out = document.getElementById("labelDuration");
         out.innerHTML = `${inp.value} ${diference}`;
+      } else if (id === "risk_level") {
+        out = document.getElementById("labelRiskLevel");
+        out.innerHTML = `Risk ${inp.value}`;
       }
     } else {
       let out = document.getElementById("labelDificulty");
-      out.innerHTML = "";
+      if (out) out.innerHTML = "";
       let out2 = document.getElementById("labelDuration");
-      out2.innerHTML = "";
+      if (out2) out2.innerHTML = "";
+      let out3 = document.getElementById("labelRiskLevel");
+      if (out3) out3.innerHTML = "";
     }
   };
 
@@ -198,7 +204,7 @@ export default function Creador() {
             )}
           </div>
           <p>
-            <label>Dificulty</label>
+            <label>Difficulty</label>
             <input
               id="difficulty"
               name="difficulty"
@@ -224,6 +230,20 @@ export default function Creador() {
               onChange={handleLabel}
             />
             <span id="labelDuration">1 Month</span>
+          </p>
+          <p>
+            <label>Risk Level</label>
+            <input
+              id="risk_level"
+              name="risk_level"
+              type="range"
+              step="1"
+              min="1"
+              max="5"
+              defaultValue="1"
+              onChange={handleLabel}
+            />
+            <span id="labelRiskLevel">Risk 1</span>
           </p>
           <p>
             <label>Season</label>
@@ -278,8 +298,9 @@ export default function Creador() {
                 <h1 style={{"textTransform": "capitalize"}}>{input.name}</h1>
               </div>
               <div className="text">
-                <h2>Dificulty Level: {input.difficulty}</h2>
+                <h2>Difficulty Level: {input.difficulty}</h2>
                 <h2>Duration of {input.duration} Month/s</h2>
+                <h2>Risk Level: {input.risk_level}</h2>
                 <span>{input.about}</span>
                 <div className="cardano">
                   <h2>Season/s</h2>

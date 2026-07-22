@@ -44,17 +44,7 @@ Para verificar que versión tienen instalada:
 
 El boilerplate cuenta con dos carpetas: `api` y `client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
 
-En `api` crear un archivo llamado: `.env` que tenga la siguiente forma:
-
-```
-DB_USER=usuariodepostgres
-DB_PASSWORD=passwordDePostgres
-DB_HOST=localhost
-```
-
-Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres. Este archivo va ser ignorado en la subida a github, ya que contiene información sensible (las credenciales).
-
-Adicionalmente será necesario que creen desde psql una base de datos llamada `countries`
+En `api/` copiar `.env.example` como `.env` y configurar las variables según el entorno.
 
 El contenido de `client` fue creado usando: Create React App.
 
@@ -144,26 +134,49 @@ El modelo de la base de datos deberá tener las siguientes entidades (Aquellas p
 
 La relación entre ambas entidades debe ser de muchos a muchos ya que un país puede contener varias actividades turísticas y, a su vez, una actividad turística puede darse en múltiples países. Por ejemplo una actividad podría ser "Ski" que podría ocurrir en Argentina y también en Estados Unidos, pero a su vez Argentina podría también incluir "Rafting".
 
-#### Backend
+## Backend (FastAPI)
 
-Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
+### Requisitos
+- Python 3.11+
+- pip
 
-__IMPORTANTE__: No está permitido utilizar los filtrados, ordenamientos y paginados brindados por la API externa, todas estas funcionalidades tienen que implementarlas ustedes.
+### Configuración del entorno
+1. Navegar a `api/`
+2. Crear entorno virtual:
+   ```
+   python -m venv venv
+   ```
+3. Activar:
+   - Windows (CMD): `venv\Scripts\activate`
+   - Windows (PowerShell): `venv\Scripts\Activate.ps1`
+   - Linux/Mac: `source venv/bin/activate`
+4. Instalar dependencias:
+   ```
+   pip install -r requirements.txt
+   ```
+5. Copiar `.env.example` como `.env` y configurar variables
 
-- [ ] __GET /countries__:
-  - En una primera instancia deberán traer todos los países desde restcountries y guardarlos en su propia base de datos y luego ya utilizarlos desde allí (Debe almacenar solo los datos necesarios para la ruta principal)
-  - Obtener un listado de los paises.
-- [ ] __GET /countries/{idPais}__:
-  - Obtener el detalle de un país en particular
-  - Debe traer solo los datos pedidos en la ruta de detalle de país
-  - Incluir los datos de las actividades turísticas correspondientes
-- [ ] __GET /countries?name="..."__:
-  - Obtener los países que coincidan con el nombre pasado como query parameter (No necesariamente tiene que ser una matcheo exacto)
-  - Si no existe ningún país mostrar un mensaje adecuado
-- [ ] __POST /activity__:
-  - Recibe los datos recolectados desde el formulario controlado de la ruta de creación de actividad turística por body
-  - Crea una actividad turística en la base de datos
+### Base de datos
+- Por defecto usa SQLite (`sqlite:///./dev.db`)
+- Para PostgreSQL: configurar `DATABASE_URL` en `.env`
 
+### Poblar base de datos
+```
+python -m scripts.seed
+```
+
+### Ejecutar servidor de desarrollo
+```
+uvicorn app.main:app --reload
+```
+
+### Ejecutar tests
+```
+pytest -v --asyncio-mode=auto
+```
+
+### Endpoints
+Documentación interactiva en `/docs` (Swagger) y `/redoc` (ReDoc) una vez iniciado el servidor.
 
 #### Testing
 - [ ] Al menos tener un componente del frontend con sus tests respectivos

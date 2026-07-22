@@ -1,11 +1,11 @@
-//http://localhost:3001/Pokemons
-const BASE = "";
 export const CALL = {
-  MAIN: BASE + "/Country",
-  BY_NAME: BASE + "/Country?name=", // + nombre
-  BY_ID: BASE + "/Country/", // + id
-  //ACTIVITIES: BASE + "/Activity",
-  NEW: BASE + "/Activity", // va esto mas una coma mas el estado ej: axios(new, estate)
-  ORDER: BASE + "/Country/order/", // + order + "/" + column
-  CONTINENT_FILTER: BASE + "/Country/continentFilter/" // + continent
+  MAIN: "/countries",
+  BY_NAME: "/countries?name=",
+  BY_ID: "/countries/",
+  NEW: "/activity",
+  ACTIVITIES: "/activity",
+  AUTH_LOGIN: "/auth/login",
+  AUTH_REGISTER: "/auth/register",
+  AUTH_ME: "/auth/me",
+  FAVORITES: "/favorites",
 };

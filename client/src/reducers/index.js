@@ -11,6 +11,14 @@ import {
   RE_RENDER_COUNTRIES,
   SHOW_HIDE,
   ADD,
+  GET_ACTIVITIES,
+  LOGIN,
+  REGISTER,
+  LOGOUT,
+  AUTH_ME,
+  GET_FAVORITES,
+  ADD_FAVORITE,
+  REMOVE_FAVORITE,
 } from "../actions/index";
 
 const initialState = {
@@ -21,226 +29,157 @@ const initialState = {
   switchDisplay: "Explore",
   switchPaged: "notFiltering",
   error: [],
+  auth: {
+    token: localStorage.getItem("auth_token") || null,
+    tokenType: null,
+    expiresIn: null,
+    user: null,
+  },
+  favorites: [],
+  activities: [],
 };
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case WORLD:
-      if (action.payload[0].Activities !== undefined) {
+      if (action.payload[0] && action.payload[0].Activities !== undefined) {
         action.payload.forEach((e) => {
-          e.Activities.sort((a, b) => {
-            return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
-          });
+          if (e.Activities && e.Activities.length) {
+            e.Activities.sort((a, b) => {
+              return (b.CountryActivity?.ActivityId || 0) - (a.CountryActivity?.ActivityId || 0);
+            });
+          }
         });
-
         action.payload.forEach((e) => {
+          if (e.Activities && e.Activities.length) {
+            const setObj = new Set();
+            const unicos = e.Activities.reduce((acc, activity) => {
+              if (!setObj.has(activity.name)) {
+                setObj.add(activity.name);
+                acc.push(activity);
+              }
+              return acc;
+            }, []);
+            e.Activities = unicos;
+          }
+        });
+        let arr = action.payload.filter((e) => {
+          return e.Activities && e.Activities.length > 0;
+        });
+        let arrFiltered = arr.map((e) => {
+          return { id: e.id, Activities: e.Activities };
+        });
+        return {
+          ...state,
+          reserveCountries: action.payload,
+          countriesOnscreen: action.payload,
+          countriesActivityFilter: [arrFiltered, ...state.countriesActivityFilter],
+        };
+      } else {
+        return {
+          ...state,
+          reserveCountries: action.payload,
+          countriesOnscreen: action.payload,
+        };
+      }
+    case GET_BY_ID:
+      action.payload.forEach((e) => {
+        if (e.Activities && e.Activities.length) {
+          e.Activities.sort((a, b) => {
+            return (b.CountryActivity?.ActivityId || 0) - (a.CountryActivity?.ActivityId || 0);
+          });
+        }
+      });
+      action.payload.forEach((e) => {
+        if (e.Activities && e.Activities.length) {
           const setObj = new Set();
           const unicos = e.Activities.reduce((acc, activity) => {
             if (!setObj.has(activity.name)) {
-              setObj.add(activity.name, activity);
+              setObj.add(activity.name);
               acc.push(activity);
             }
             return acc;
           }, []);
           e.Activities = unicos;
-        });
-        let arr = [];
-        state.countriesActivityFilter = [];
-        arr = action.payload.filter((e) => {
-          return e.Activities.length > 0 && e.Activities;
-        });
-        let arrFiltered = arr.map((e) => {
-          return {
-            id: e.id,
-            Activities: e.Activities,
-          };
-        });
-
-        arr = [...arrFiltered, state.countriesActivityFilter];
-        return {
-          ...state,
-          reserveCountries: action.payload,
-          countriesOnscreen: action.payload,
-          countriesActivityFilter: [
-            ...state.countriesActivityFilter,
-            arr.flat(),
-          ],
-        };
-      } else {
-        let arr = [];
-        arr = [...arr, state.countriesActivityFilter];
-        return {
-          ...state,
-          reserveCountries: action.payload,
-          countriesOnscreen: action.payload,
-          countriesActivityFilter: [
-            ...state.countriesActivityFilter,
-            arr.flat(),
-          ],
-        };
-      }
-    case GET_BY_ID:
-      action.payload.forEach((e) => {
-        e.Activities.sort((a, b) => {
-          return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
-        });
+        }
       });
-
-      action.payload.forEach((e) => {
-        const setObj = new Set();
-        const unicos = e.Activities.reduce((acc, activity) => {
-          if (!setObj.has(activity.name)) {
-            setObj.add(activity.name, activity);
-            acc.push(activity);
-          }
-          return acc;
-        }, []);
-        e.Activities = unicos;
-      });
-      return {
-        ...state,
-        countriesDetail: action.payload,
-      };
+      return { ...state, countriesDetail: action.payload };
     case GET_BY_NAME:
       action.payload.forEach((e) => {
-        e.Activities.sort((a, b) => {
-          return b.CountryActivity.ActivityId - a.CountryActivity.ActivityId;
-        });
+        if (e.Activities && e.Activities.length) {
+          e.Activities.sort((a, b) => {
+            return (b.CountryActivity?.ActivityId || 0) - (a.CountryActivity?.ActivityId || 0);
+          });
+        }
       });
-
       action.payload.forEach((e) => {
-        const setObj = new Set();
-        const unicos = e.Activities.reduce((acc, activity) => {
-          if (!setObj.has(activity.name)) {
-            setObj.add(activity.name, activity);
-            acc.push(activity);
-          }
-          return acc;
-        }, []);
-        e.Activities = unicos;
+        if (e.Activities && e.Activities.length) {
+          const setObj = new Set();
+          const unicos = e.Activities.reduce((acc, activity) => {
+            if (!setObj.has(activity.name)) {
+              setObj.add(activity.name);
+              acc.push(activity);
+            }
+            return acc;
+          }, []);
+          e.Activities = unicos;
+        }
       });
-      return {
-        ...state,
-        countriesDetail: action.payload,
-      };
+      return { ...state, countriesDetail: action.payload };
     case ORDER:
-      return {
-        ...state,
-        countriesOnscreen: action.payload,
-      };
+      return { ...state, countriesOnscreen: action.payload };
     case ACTIVITY_FILTER:
-      return {
-        ...state,
-        countriesOnscreen: action.payload,
-      };
+      return { ...state, countriesOnscreen: action.payload };
     case CONTINENT_FILTER:
-      return {
-        ...state,
-        countriesOnscreen: action.payload,
-      };
+      return { ...state, countriesOnscreen: action.payload };
     case CLEAR:
-      return {
-        ...state,
-        countriesDetail: action.payload,
-      };
+      return { ...state, countriesDetail: action.payload };
     case CLEAR_WORLD:
-      return {
-        ...state,
-        reserveCountries: action.payload,
-        countriesActivityFilter: action.payload,
-      };
+      return { ...state, reserveCountries: action.payload, countriesActivityFilter: action.payload };
     case SHOW_HIDE:
-      return {
-        ...state,
-        switchDisplay: action.payload,
-      };
+      return { ...state, switchDisplay: action.payload };
     case SWITCH_PAGED:
-      return {
-        ...state,
-        switchPaged: action.payload,
-      };
+      return { ...state, switchPaged: action.payload };
     case RE_RENDER_COUNTRIES:
-      const mountAgain = [...state.reserveCountries];
-      return {
-        ...state,
-        countriesOnscreen: mountAgain,
-      };
+      return { ...state, countriesOnscreen: [...state.reserveCountries] };
     case ADD:
-      if (state.countriesActivityFilter[0].length > 0) {
+      if (state.countriesActivityFilter[0] && state.countriesActivityFilter[0].length > 0) {
         let existent = [];
-        // eslint-disable-next-line no-unused-vars
-        let a = [];
         state.countriesActivityFilter[0].forEach((e) => {
           existent.push({
-            id: (a = action.payload.countryId.map((element) => {
-              return element === e.id ? true : false;
-            })),
-            name: e.Activities.map((name) => {
-              return name.name === action.payload.name;
-            }),
+            id: (action.payload.country_ids || []).map((element) => element === e.id),
+            name: (e.Activities || []).map((name) => name.name === action.payload.name),
           });
         });
         let found = existent.find((e) => {
           return e.id.includes(true) && e.name.includes(true);
         });
-
         if (found) {
           alert("the Activity was updated in some countries");
-          let arr = [];
-          action.payload.countryId.forEach((e) => {
-            return arr.push({
-              id: e,
-              Activities: [
-                {
-                  name: action.payload.name,
-                },
-              ],
-            });
-          });
-          return {
-            ...state,
-            countriesActivityFilter: [
-              ...state.countriesActivityFilter,
-              arr,
-            ].flat(),
-          };
         } else {
-          alert("¡Well done Activity created!");
-          let arr = [];
-          action.payload.countryId.forEach((e) => {
-            return arr.push({
-              id: e,
-              Activities: [
-                {
-                  name: action.payload.name,
-                },
-              ],
-            });
-          });
+          alert("Well done Activity created!");
         }
       }
-      if (state.countriesActivityFilter[0].length < 1) {
-        alert("¡Well done Activity created!");
-        let arr = [];
-        action.payload.countryId.forEach((e) => {
-          return arr.push({
-            id: e,
-            Activities: [
-              {
-                name: action.payload.name,
-              },
-            ],
-          });
-        });
-        return {
-          ...state,
-          countriesActivityFilter: [
-            ...state.countriesActivityFilter,
-            arr,
-          ].flat(),
-        };
+      if (!state.countriesActivityFilter[0] || state.countriesActivityFilter[0].length < 1) {
+        alert("Well done Activity created!");
       }
-      break;
+      return state;
+    case GET_ACTIVITIES:
+      return { ...state, activities: action.payload };
+    case LOGIN:
+      return { ...state, auth: { ...state.auth, token: action.payload.token, tokenType: action.payload.tokenType, expiresIn: action.payload.expiresIn } };
+    case REGISTER:
+      return { ...state, auth: { ...state.auth, user: action.payload } };
+    case LOGOUT:
+      return { ...state, auth: { token: null, tokenType: null, expiresIn: null, user: null }, favorites: [] };
+    case AUTH_ME:
+      return { ...state, auth: { ...state.auth, user: action.payload } };
+    case GET_FAVORITES:
+      return { ...state, favorites: action.payload };
+    case ADD_FAVORITE:
+      return state;
+    case REMOVE_FAVORITE:
+      return { ...state, favorites: state.favorites.filter((c) => c.id !== action.payload) };
     default:
       return state;
   }
