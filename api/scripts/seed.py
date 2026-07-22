@@ -94,6 +94,43 @@ def try_v5_api() -> list[dict] | None:
     return None
 
 
+def try_v5_api_paginated() -> list[dict] | None:
+    headers = {"Authorization": f"Bearer {RESTCOUNTRIES_API_KEY}"}
+    all_objects = []
+    limit = 250
+    offset = 0
+    max_attempts_per_page = 3
+
+    for attempt in range(1, max_attempts_per_page + 1):
+        try:
+            url = f"{V5_API}?limit={limit}&offset={offset}"
+            print(f"[seed] Fetching v5 API page offset={offset} (attempt {attempt})...")
+            resp = requests.get(url, headers=headers, timeout=60)
+            resp.raise_for_status()
+            body = resp.json()
+            objects = (body.get("data") or {}).get("objects") or []
+            meta = (body.get("data") or {}).get("meta") or {}
+            total = meta.get("total", 0)
+            all_objects.extend(objects)
+            print(f"[seed] v5 page got {len(objects)} countries (total={total}, so far={len(all_objects)})")
+
+            if len(all_objects) >= total or len(objects) < limit:
+                if all_objects:
+                    print(f"[seed] v5 API returned {len(all_objects)} countries total.")
+                    return all_objects
+                else:
+                    return None
+
+            offset += limit
+            attempt = 0
+            time.sleep(0.5)
+        except requests.RequestException as e:
+            print(f"[seed] v5 attempt {attempt} failed: {e}")
+            if attempt < max_attempts_per_page:
+                time.sleep(2 ** attempt)
+    return None if not all_objects else all_objects
+
+
 def try_fallback_api() -> list[dict] | None:
     try:
         print(f"[seed] Fetching fallback dataset...")
@@ -145,7 +182,8 @@ def clean_mledoze_data(raw: list[dict]) -> list[dict]:
         if not cca3 or not cca3.strip():
             skipped += 1
             continue
-        name_common = (entry.get("name") or {}).get("common", "")
+        name_obj = entry.get("name") or {}
+        name_common = name_obj.get("common", "")
         if not name_common:
             skipped += 1
             continue
@@ -176,9 +214,17 @@ def fetch_countries() -> list[dict]:
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
+    if RESTCOUNTRIES_API_KEY:
+        data = try_v5_api_paginated()
+        if data is not None:
+            with open(CACHE_FILE, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            print(f"[seed] Saved {len(data)} entries to cache.")
+            return data
+    else:
+        print("[seed] No RESTCOUNTRIES_API_KEY set, skipping v5.")
+
     data = try_v3_api()
-    if data is None:
-        data = try_v5_api()
     if data is None:
         data = try_fallback_api()
 
@@ -198,10 +244,12 @@ def fetch_countries() -> list[dict]:
 
 def clean_data(raw: list[dict]) -> list[dict]:
     if raw and isinstance(raw[0], dict):
-        if "cca3" in raw[0]:
-            return clean_v3_data(raw)
-        if "codes" in raw[0]:
+        has_flags_key = "flags" in raw[0] or "flag" in raw[0]
+        has_codes_key = "codes" in raw[0]
+        if has_codes_key and has_flags_key and isinstance(raw[0].get("flag"), dict):
             return clean_v5_data(raw)
+        if has_flags_key and isinstance(raw[0].get("flags"), dict):
+            return clean_v3_data(raw)
     return clean_mledoze_data(raw)
 
 

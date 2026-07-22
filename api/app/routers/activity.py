@@ -5,7 +5,6 @@ from app.database import get_db
 from app.deps import limiter
 from app.models import Activity, Country, User, activity_country
 from app.schemas import ActivityCreate, ActivityOut, ActivityUpdate
-from app.security import get_current_user
 
 router = APIRouter(prefix="/activity", tags=["activity"])
 
@@ -47,7 +46,6 @@ def create_activity(
     request: Request,
     body: ActivityCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
 ):
     countries = db.query(Country).filter(Country.id.in_(body.country_ids)).all()
     if len(countries) != len(body.country_ids):
@@ -64,7 +62,7 @@ def create_activity(
         duration=body.duration,
         season=body.season,
         risk_level=body.risk_level,
-        created_by=current_user.id,
+        created_by=None,
         countries=countries,
     )
     db.add(activity)
@@ -92,13 +90,10 @@ def update_activity(
     id: int,
     body: ActivityUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
 ):
     activity = db.query(Activity).filter(Activity.id == id).first()
     if not activity:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Activity not found")
-    if activity.created_by is None or activity.created_by != current_user.id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="You do not own this activity")
 
     update_data = body.model_dump(exclude_unset=True)
     country_ids = update_data.pop("country_ids", None)
@@ -119,13 +114,10 @@ def update_activity(
 def delete_activity(
     id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
 ):
     activity = db.query(Activity).filter(Activity.id == id).first()
     if not activity:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Activity not found")
-    if activity.created_by is None or activity.created_by != current_user.id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="You do not own this activity")
 
     db.delete(activity)
     db.commit()

@@ -58,6 +58,14 @@ class Token(BaseModel):
     token_type: Literal["bearer"] = "bearer"
 
 
+class ActivityBrief(BaseModel):
+    name: str
+    difficulty: int
+    duration: int
+    season: list[str]
+    risk_level: int | None = None
+    about: str | None = None
+
 class CountryOut(BaseModel):
     id: str
     name: str
@@ -68,6 +76,7 @@ class CountryOut(BaseModel):
     population: int | None
     flag_url: str | None
     activities_count: int = 0
+    Activities: list[ActivityBrief] = []
 
     model_config = ConfigDict(from_attributes=True)
 
