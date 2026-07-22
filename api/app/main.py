@@ -49,3 +49,13 @@ app.include_router(auth.router)
 app.include_router(countries.router)
 app.include_router(activity.router)
 app.include_router(favorites.router)
+
+
+@app.get("/seed")
+def seed_database():
+    from scripts.seed import main as run_seed
+    try:
+        run_seed()
+        return {"status": "ok", "message": "Database seeded"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}

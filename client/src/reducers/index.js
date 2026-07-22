@@ -27,6 +27,9 @@ export default function rootReducer(state = initialState, action) {
   const payload = action.payload && action.payload.items ? action.payload.items : action.payload;
   switch (action.type) {
     case WORLD:
+      if (!payload || payload.length === 0) {
+        return { ...state, reserveCountries: [], countriesOnscreen: [] };
+      }
       payload.forEach(function (e) {
         e.flag = e.flag_url || e.flag || "";
         e.Activities = e.activities || e.Activities || [];
