@@ -1,29 +1,42 @@
 .paginado {
-  background-color: rgb(4, 0, 24);
-  width: 100%;
-  padding-top: 6px;
-  display: inline-block;
-  padding-bottom: 90px;
-  position: static;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 24px 16px 60px;
+  flex-wrap: wrap;
+  background: transparent;
 }
 
 .paginado a {
-  background-color: rgba(4, 0, 24, 0.856);
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  margin: 0.3em;
-  padding: 0.3em;
-  text-align: center;
-}
-
-.paginado a:hover:not(.activo){
-  background-color: gray;
-}
-/* .empty {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
-} */
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  background: var(--surface);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
 
+.paginado a:hover:not(.activo) {
+  background: var(--surface-hover);
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.paginado a.activo {
+  background: var(--accent-surface);
+  border-color: var(--accent);
+  color: var(--accent-hover);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
