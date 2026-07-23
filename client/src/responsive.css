@@ -1,0 +1,295 @@
+/* ===== Responsive CSS ===== */
+/* Mobile-first: base overrides apply to all screens, enhanced via min-width queries */
+
+/* ─── Navbar ─── */
+.navbar {
+  padding: 0 12px;
+}
+.navbar nav {
+  width: 100%;
+}
+.list-item {
+  gap: 0;
+}
+.list-item a,
+.list-item .logout-btn {
+  min-height: 44px;
+  padding: 0 12px;
+  font-size: 0.82rem;
+}
+
+/* ─── Cards grid ─── */
+.cards {
+  gap: 16px;
+  padding: 16px;
+}
+.card {
+  max-width: 100%;
+}
+
+/* ─── Detail page ─── */
+.bigDetail {
+  padding-top: 70px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.pokemon-detail {
+  padding: 0 8px;
+}
+.titledetails h1 {
+  font-size: 1.5rem;
+}
+.description > img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  aspect-ratio: 3/2;
+}
+.cardanoloTop {
+  padding: 16px 20px;
+}
+.cardanolo {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.cardInDetail {
+  padding: 16px;
+}
+.description hr {
+  width: 100%;
+}
+
+/* ─── Forms (Login & Register) ─── */
+.login-form,
+.register-form {
+  min-width: 0;
+  padding: 1.5rem;
+}
+.login-form h2,
+.register-form h2 {
+  font-size: 1.3rem;
+}
+
+/* ─── Landing / First Contact ─── */
+.get {
+  width: 260px;
+  height: 56px;
+  font-size: 17px;
+}
+
+/* ─── Search & Explorer ─── */
+.explorer,
+.exploring {
+  padding-left: 12px;
+  padding-right: 12px;
+  gap: 10px;
+  flex-direction: column;
+  align-items: stretch;
+}
+.begin,
+.begin2 {
+  width: 100%;
+  justify-content: center;
+}
+.textBoxFinder {
+  width: 100%;
+  max-width: 220px;
+}
+.formas {
+  padding: 12px 0;
+}
+.formas input,
+.formas select,
+.formas button {
+  width: 100%;
+}
+
+/* ─── Favorites ─── */
+.favorites-page {
+  padding: 90px 12px 40px;
+}
+.favorites-page h2 {
+  font-size: 1.4rem;
+}
+  .favorites-page .cards {
+    gap: 16px;
+  }
+.favorites-page .card .imagen {
+  height: 120px;
+}
+
+/* ─── Pagination ─── */
+.paginado {
+  gap: 4px;
+  padding: 16px 8px 40px;
+}
+.paginado a {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  font-size: 0.78rem;
+}
+
+/* ─── Create / Form ─── */
+.biger {
+  padding-top: 70px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.form {
+  padding: 20px;
+}
+.crea-containers,
+.crea-containers2 {
+  width: 100%;
+}
+
+/* ─── NotFound ─── */
+.bodyse {
+  padding: 0 16px;
+}
+.title {
+  font-size: 2rem;
+}
+
+/* ─── Titles / misc ─── */
+.titleBuscador {
+  font-size: 1.5rem;
+}
+.titleDetail {
+  font-size: 1.3rem;
+}
+
+/* ===== Tablet ≥768px ===== */
+@media (min-width: 768px) {
+  .navbar {
+    padding: 0 20px;
+  }
+  .navbar nav {
+    width: auto;
+  }
+  .list-item {
+    gap: 0;
+  }
+  .list-item a,
+  .list-item .logout-btn {
+    padding: 0 14px;
+    font-size: 0.85rem;
+  }
+
+  .cards {
+    gap: 18px;
+    padding: 20px;
+  }
+
+  .bigDetail {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .pokemon-detail {
+    padding: 0 16px;
+  }
+  .titledetails h1 {
+    font-size: 2rem;
+  }
+  .cardanolo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .login-form,
+  .register-form {
+    min-width: 340px;
+    padding: 2rem;
+  }
+
+  .get {
+    width: 300px;
+  }
+
+  .explorer,
+  .exploring {
+    flex-direction: row;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .begin,
+  .begin2 {
+    width: auto;
+  }
+  .textBoxFinder {
+    width: 220px;
+  }
+  .formas input,
+  .formas select {
+    width: auto;
+  }
+
+  .favorites-page {
+    padding: 100px 20px 50px;
+  }
+  .favorites-page .cards {
+    gap: 18px;
+  }
+
+  .paginado {
+    gap: 6px;
+    padding: 20px 16px 50px;
+  }
+  .paginado a {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 0.85rem;
+  }
+
+  .titleBuscador {
+    font-size: 1.8rem;
+  }
+  .titleDetail {
+    font-size: 1.6rem;
+  }
+
+  .form {
+    padding: 28px;
+  }
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+/* ===== Desktop ≥1024px ===== */
+@media (min-width: 1024px) {
+  .navbar {
+    padding: 0 24px;
+  }
+  .list-item a,
+  .list-item .logout-btn {
+    padding: 0 16px;
+    font-size: 0.9rem;
+  }
+
+  .cards {
+    gap: 20px;
+    padding: 20px 24px;
+  }
+
+  .pokemon-detail {
+    padding: 0 24px;
+  }
+  .titledetails h1 {
+    font-size: 2.5rem;
+  }
+  .cardanolo {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .favorites-page .cards {
+    gap: 20px;
+  }
+}
+@media (min-width: 1440px) {
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}

@@ -53,7 +53,7 @@ export default function Details() {
     }
 
     return (
-      <div className="bigDetail">
+      <div className="bigDetail bg-page">
         <div className="pokemon-detail">
           {country[0].name ? (
             <div className="description">

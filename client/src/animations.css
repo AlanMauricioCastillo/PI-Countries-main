@@ -1,0 +1,175 @@
+/* ───────── page entrance ───────── */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cards,
+.pokemon-detail,
+.login-form,
+.register-form,
+.form,
+.favorites-page {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* ───────── card staggered entrance ───────── */
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card {
+  animation: cardAppear 0.4s ease-out both;
+}
+.card:nth-child(1)  { animation-delay: 0.05s; }
+.card:nth-child(2)  { animation-delay: 0.10s; }
+.card:nth-child(3)  { animation-delay: 0.15s; }
+.card:nth-child(4)  { animation-delay: 0.20s; }
+.card:nth-child(5)  { animation-delay: 0.25s; }
+.card:nth-child(6)  { animation-delay: 0.30s; }
+.card:nth-child(7)  { animation-delay: 0.35s; }
+.card:nth-child(8)  { animation-delay: 0.40s; }
+.card:nth-child(9)  { animation-delay: 0.45s; }
+.card:nth-child(10) { animation-delay: 0.50s; }
+
+/* ───────── skeleton loading shimmer ───────── */
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    var(--surface-raised) 50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ───────── pulse glow ───────── */
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 10px var(--accent-glow); }
+  50%      { box-shadow: 0 0 25px var(--accent-glow); }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* ───────── smooth page transition ───────── */
+
+.App,
+.app {
+  transition: opacity var(--transition-slow);
+}
+
+/* ───────── bounce-in on button hover ───────── */
+
+@keyframes bounceIn {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  70%  { transform: scale(0.96); }
+  100% { transform: scale(1.04); }
+}
+
+button:not(.no-anim):hover,
+.button:not(.no-anim):hover,
+.btn:not(.no-anim):hover {
+  animation: bounceIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ───────── floating animation for landing / hero buttons ───────── */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+.landing-button,
+.hero-button,
+.float-anim {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ───────── slide-in for search / filter panel ───────── */
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.search-panel,
+.filter-panel,
+.panel-toggle {
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-panel[data-side="right"],
+.filter-panel[data-side="right"],
+.panel-toggle[data-side="right"] {
+  animation-name: slideInRight;
+}
+
+/* ───────── hover lift for cards ───────── */
+
+.card:hover {
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+/* ───────── spin animation for spinners ───────── */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ───────── reduced motion ───────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

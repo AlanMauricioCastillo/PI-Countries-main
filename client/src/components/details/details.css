@@ -1,115 +1,185 @@
-.movie-card {
-  font: 14px/22px "Lato", Arial, sans-serif;
-  color: #a9a8a3;
-  padding: 40px 0;
+.bigDetail {
+  padding-top: 80px;
+  min-height: 100vh;
+  padding-bottom: 80px;
 }
 
-.bigDetail {
-  background: url("./W.jpg");
-  padding-top: 60px;
-  padding-bottom: 300px;
-  height: 100vh;
-  background-size: cover;
-  background-attachment: fixed;
+.pokemon-detail {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.titledetails {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.titledetails h1 {
+  text-transform: capitalize;
+  color: var(--text-primary);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.description {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-.titleDetail {
-  font-size: 40px;
-  font-weight: bold;
-  color: orangered;
-  margin-bottom: 20px;
+.description > img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 24px;
 }
 
-.container {
-  margin: 0 auto;
-  width: 700px;
-  height: 600px;
-  background: #4d4d4d;
-  border-radius: 5px;
-  position: relative;
+.cardanoloTop {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 32px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 40px;
 }
 
-.details {
-  padding: 50px 0 0 50px;
+.cardanoloTop h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-transform: capitalize;
 }
-.cardInDetail {
-  display: inline-block;
-  margin: 8px;
-  max-width: 300px;
-  perspective: 1000;
-  position: relative;
-  text-align: left;
+
+.cardanoloTop h2 span {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.cardanoloTop a {
+  color: var(--accent-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.cardanoloTop a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
 }
 
 .titleCapitalized {
   text-transform: capitalize;
+  background: transparent;
+  text-align: left;
+}
+
+.titleDetail {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px;
   text-align: center;
-  background: rgba(255, 166, 0, 0.383);
 }
 
-.titledetails {
-  text-transform: capitalize;
-  color: rgba(255, 68, 0, 0.938);
-  font-size: 40px;
-  margin-bottom: 13px;
-  line-height: normal;
-  position: relative;
-}
-.title span {
-  margin-left: 12px;
-  background: #c4b03d9b;
-  border-radius: 5px;
-  color: #544c21;
-  font-size: 14px;
-  padding: 0px 4px;
-}
-.description {
-  /* background-color: blue; */
-  bottom: 0px;
-  height: 200px;
-  font-size: 16px;
-  line-height: 26px;
-  color: #b1b0ac;
+.description hr {
+  width: 60%;
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0 0 32px;
 }
 
-.cardanoloTop {
-  background-color: rgba(255, 68, 0, 0.671);
-  display: flex;
-  padding: 20px;
-  width: 40%;
-  color: black;
-  padding: 10 px;
-  white-space: nowrap;
-  flex-direction: column;
-}
 .cardanolo {
-  background-color: rgba(255, 68, 0, 0.794);
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
   width: 100%;
-  color: black;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.cardanolos {
-  width: 80%;
-  padding-left: 10%;
-}
-.column {
-  padding-left: 41px;
-  padding-top: 30px;
-  margin-left: 20px;
-  width: 480px;
+  padding: 0;
+  background: transparent;
 }
 
-.img {
-  width: 500px;
-  height: 500px;
-  padding-left: 50px;
+.cardInDetail {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  transition: var(--transition);
 }
-.container2 {
+
+.cardInDetail:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 15px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+.cardInDetail h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  color: var(--accent-hover);
+}
+
+.cardInDetail span {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.cardInDetail h4 {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.cardInDetail hr {
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 12px 0 0;
+}
+
+.cardInDetail p {
+  margin: 2px 0;
+  font-size: 0.85rem;
+  color: var(--accent-secondary);
+}
+
+.cardanolos {
+  width: 100%;
+  padding: 0;
+}
+
+.cardanoloTop .titleCapitalized {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.cardanoloTop .titleCapitalized::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
 }
