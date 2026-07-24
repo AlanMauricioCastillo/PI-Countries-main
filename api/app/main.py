@@ -5,16 +5,34 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
+from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.database import Base, engine
 from app.deps import limiter
+from app.models import Country
 from app.routers import activity, auth, countries, favorites
+
+
+def _auto_seed_if_empty():
+    with Session(engine) as db:
+        count = db.query(Country).count()
+        if count > 0:
+            return
+    from scripts.seed import clean_data, fetch_countries
+    raw = fetch_countries()
+    data = clean_data(raw)
+    with Session(engine) as db:
+        for row in data:
+            db.add(Country(**row))
+        db.commit()
+    print(f"[auto-seed] Inserted {len(data)} countries on startup")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     Base.metadata.create_all(bind=engine)
+    _auto_seed_if_empty()
     yield
 
 
